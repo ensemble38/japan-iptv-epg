@@ -20,6 +20,18 @@ SOURCES = [
     ("karenda", "https://raw.githubusercontent.com/karenda-jp/etc/refs/heads/main/guides.xml"),
     ("epgshare-jp1", "https://epgshare01.online/epgshare01/epg_ripper_JP1.xml.gz"),
     ("epgshare-jp2", "https://epgshare01.online/epgshare01/epg_ripper_JP2.xml.gz"),
+    (
+        "xumo-us",
+        "https://raw.githubusercontent.com/BuddyChewChew/xumo-playlist-generator/refs/heads/main/playlists/xumo_epg.xml.gz",
+    ),
+    (
+        "lg-channels-us",
+        "https://raw.githubusercontent.com/JulioCesarXY/EPG-LG-Channels/refs/heads/main/lg_epg_us.xml",
+    ),
+    (
+        "taiwan-traditional",
+        "https://raw.githubusercontent.com/mengxianshengaaa/epg/refs/heads/main/epg_TW.xml",
+    ),
 ]
 
 REFERENCE_IDS = [
