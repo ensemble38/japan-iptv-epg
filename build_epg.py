@@ -28,10 +28,15 @@ SOURCES = [
         "lg-channels-us",
         "https://raw.githubusercontent.com/JulioCesarXY/EPG-LG-Channels/refs/heads/main/lg_epg_us.xml",
     ),
-    (
-        "taiwan-traditional",
-        "https://raw.githubusercontent.com/mengxianshengaaa/epg/refs/heads/main/epg_TW.xml",
-    ),
+    # The former Taiwan aggregate mirror kept returning a large but expired
+    # January/February 2026 guide. Pull the live per-channel XMLTV endpoints
+    # instead so a high programme count cannot hide stale data.
+    ("epgpw-tw-456834", "https://epg.pw/api/epg.xml?channel_id=456834"),
+    ("epgpw-tw-456835", "https://epg.pw/api/epg.xml?channel_id=456835"),
+    ("epgpw-tw-456836", "https://epg.pw/api/epg.xml?channel_id=456836"),
+    ("epgpw-tw-456838", "https://epg.pw/api/epg.xml?channel_id=456838"),
+    ("epgpw-tw-456841", "https://epg.pw/api/epg.xml?channel_id=456841"),
+    ("epgpw-tw-456842", "https://epg.pw/api/epg.xml?channel_id=456842"),
 ]
 
 REFERENCE_IDS = [
@@ -42,6 +47,15 @@ REFERENCE_IDS = [
     "ParadiseTV.jp",
     "RedCherry.jp",
 ]
+
+FRESHNESS_REQUIRED_SOURCE_IDS = {
+    "456834",
+    "456835",
+    "456836",
+    "456838",
+    "456841",
+    "456842",
+}
 
 
 def download_xml(name: str, url: str) -> ET.Element:
@@ -63,6 +77,17 @@ def programme_key(programme: ET.Element) -> tuple[str, str, str, str]:
         programme.get("stop", ""),
         programme.findtext("title", default=""),
     )
+
+
+def xmltv_timestamp(value: str) -> datetime:
+    """Parse the timestamp forms used by the configured XMLTV sources."""
+    compact = value.strip()
+    for pattern in ("%Y%m%d%H%M%S %z", "%Y%m%d%H%M %z"):
+        try:
+            return datetime.strptime(compact, pattern)
+        except ValueError:
+            pass
+    raise ValueError(f"Unsupported XMLTV timestamp: {value!r}")
 
 
 def main() -> None:
@@ -100,6 +125,24 @@ def main() -> None:
     for reference_id in REFERENCE_IDS:
         requested.setdefault(reference_id, reference_id)
 
+    now = datetime.now(timezone.utc)
+    stale_source_ids: list[dict[str, str]] = []
+    for source_id in sorted(FRESHNESS_REQUIRED_SOURCE_IDS):
+        source_programmes = programmes.get(source_id, [])
+        latest_stop = max(
+            (xmltv_timestamp(item.get("stop", "")) for item in source_programmes if item.get("stop")),
+            default=None,
+        )
+        if latest_stop is None or latest_stop <= now:
+            stale_source_ids.append(
+                {
+                    "source_id": source_id,
+                    "latest_stop": latest_stop.isoformat() if latest_stop else "missing",
+                }
+            )
+    if stale_source_ids:
+        raise RuntimeError(f"Refusing to publish stale Taiwan guide: {stale_source_ids}")
+
     output = ET.Element(
         "tv",
         {
@@ -132,7 +175,10 @@ def main() -> None:
             f"Refusing to publish incomplete guide: channels={channel_total}, programmes={programme_total}"
         )
 
-    ET.indent(output, space="  ")
+    # GitHub Actions uses Python 3.12. Keep local verification compatible
+    # with older Python runtimes where ElementTree.indent is unavailable.
+    if hasattr(ET, "indent"):
+        ET.indent(output, space="  ")
     xml_path = PUBLIC / "japan_iptv_epg.xml"
     ET.ElementTree(output).write(xml_path, encoding="utf-8", xml_declaration=True)
     with xml_path.open("rb") as source, gzip.open(PUBLIC / "japan_iptv_epg.xml.gz", "wb", compresslevel=9) as target:
@@ -144,6 +190,7 @@ def main() -> None:
         "channels": channel_total,
         "programmes": programme_total,
         "missing_source_ids": missing_source_ids,
+        "freshness_checked_source_ids": sorted(FRESHNESS_REQUIRED_SOURCE_IDS),
         "sources": source_stats,
     }
     (PUBLIC / "status.json").write_text(json.dumps(status, ensure_ascii=False, indent=2), encoding="utf-8")
