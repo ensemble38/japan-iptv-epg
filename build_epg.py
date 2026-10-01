@@ -4,10 +4,13 @@ import copy
 import csv
 import gzip
 import json
+import os
 import re
+import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -59,6 +62,74 @@ FRESHNESS_REQUIRED_SOURCE_IDS = {
 }
 
 TAIWAN_PERFORMER_SOURCE_IDS = {"456834", "456835", "456836", "456841", "456842"}
+TAIWAN_SOURCE_IDS = FRESHNESS_REQUIRED_SOURCE_IDS
+TRANSLATION_CACHE = Path(
+    os.environ.get("EPG_TRANSLATION_CACHE", ROOT / ".translation-cache" / "title_zh_ja.json")
+)
+
+
+def load_translation_cache() -> dict[str, str]:
+    try:
+        data = json.loads(TRANSLATION_CACHE.read_text(encoding="utf-8"))
+        return {str(key): str(value) for key, value in data.items() if key and value}
+    except (FileNotFoundError, json.JSONDecodeError, OSError):
+        return {}
+
+
+TITLE_TRANSLATIONS = load_translation_cache()
+
+
+def translation_key(source_id: str, title: str) -> str:
+    return f"{source_id}\t{title.strip()}"
+
+
+def fetch_japanese_translation(title: str) -> str | None:
+    """Translate one Traditional-Chinese title; failure must never drop EPG."""
+    query = urllib.parse.urlencode(
+        {
+            "q": title,
+            "langpair": "zh-TW|ja",
+        }
+    )
+    request = urllib.request.Request(
+        f"https://api.mymemory.translated.net/get?{query}",
+        headers={"User-Agent": "japan-iptv-epg-builder/1.0"},
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=20) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+        if int(payload.get("responseStatus", 0)) != 200:
+            return None
+        translated = str(payload.get("responseData", {}).get("translatedText", "")).strip()
+        return translated if translated and translated != title else None
+    except (OSError, ValueError, TypeError, KeyError, IndexError, json.JSONDecodeError):
+        return None
+
+
+def populate_translation_cache(programmes: dict[str, list[ET.Element]]) -> int:
+    """Translate only unseen Taiwan titles, concurrently, then persist the cache."""
+    pending: dict[str, str] = {}
+    for source_id in TAIWAN_SOURCE_IDS:
+        for programme in programmes.get(source_id, []):
+            title = programme.findtext("title", default="").strip()
+            key = translation_key(source_id, title)
+            if title and key not in TITLE_TRANSLATIONS:
+                pending[key] = title
+
+    if pending:
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            futures = {executor.submit(fetch_japanese_translation, title): key for key, title in pending.items()}
+            for future in as_completed(futures):
+                translated = future.result()
+                if translated:
+                    TITLE_TRANSLATIONS[futures[future]] = translated
+
+        TRANSLATION_CACHE.parent.mkdir(parents=True, exist_ok=True)
+        TRANSLATION_CACHE.write_text(
+            json.dumps(TITLE_TRANSLATIONS, ensure_ascii=False, indent=2, sort_keys=True),
+            encoding="utf-8",
+        )
+    return len(pending)
 
 
 def clean_performer_name(value: str) -> str | None:
@@ -159,10 +230,10 @@ def extract_performers(source_id: str, programme: ET.Element) -> tuple[list[str]
     return actors, "、".join(actors) if actors else None
 
 
-def add_performer_metadata(programme: ET.Element, source_id: str) -> int:
+def add_performer_metadata(programme: ET.Element, source_id: str) -> tuple[int, str | None]:
     actors, display_names = extract_performers(source_id, programme)
     if not display_names:
-        return 0
+        return 0, None
 
     if programme.find("sub-title") is None:
         subtitle = ET.Element("sub-title", {"lang": "zh"})
@@ -183,7 +254,42 @@ def add_performer_metadata(programme: ET.Element, source_id: str) -> int:
             if actor_name not in existing:
                 ET.SubElement(credits, "actor").text = actor_name
                 existing.add(actor_name)
-    return len(actors)
+    return len(actors), display_names
+
+
+def localize_taiwan_title(programme: ET.Element, source_id: str, performers: str | None) -> bool:
+    """Make one title that both Lume and Lumen render; retain the Chinese original."""
+    if source_id not in TAIWAN_SOURCE_IDS:
+        return False
+    title_nodes = programme.findall("title")
+    if not title_nodes:
+        return False
+
+    original = (title_nodes[0].text or "").strip()
+    if not original:
+        return False
+    translated = TITLE_TRANSLATIONS.get(translation_key(source_id, original), original).strip() or original
+    visible_title = translated
+    if performers:
+        visible_title = f"{visible_title}｜出演：{performers}"
+
+    # Both clients reliably render the first/only title. Lume concatenates
+    # multiple language variants, so keep exactly one title in this feed.
+    title_nodes[0].text = visible_title
+    title_nodes[0].set("lang", "ja")
+    for extra in title_nodes[1:]:
+        programme.remove(extra)
+
+    if translated != original:
+        desc = programme.find("desc")
+        if desc is None:
+            desc = ET.Element("desc", {"lang": "ja"})
+            children = list(programme)
+            title_index = children.index(title_nodes[0])
+            programme.insert(title_index + 1, desc)
+        existing = (desc.text or "").strip()
+        desc.text = f"原題：{original}" + (f"\n{existing}" if existing else "")
+    return translated != original
 
 
 def download_xml(name: str, url: str) -> ET.Element:
@@ -271,6 +377,8 @@ def main() -> None:
     if stale_source_ids:
         raise RuntimeError(f"Refusing to publish stale Taiwan guide: {stale_source_ids}")
 
+    translation_requests = populate_translation_cache(programmes)
+
     output = ET.Element(
         "tv",
         {
@@ -282,6 +390,7 @@ def main() -> None:
     programme_total = 0
     performer_programmes = 0
     performer_credits = 0
+    translated_programmes = 0
     for playlist_id, source_id in requested.items():
         source_channel = channels.get(source_id)
         if source_channel is None:
@@ -296,7 +405,9 @@ def main() -> None:
         for source_programme in programmes.get(source_id, []):
             programme = copy.deepcopy(source_programme)
             programme.set("channel", playlist_id)
-            added_actors = add_performer_metadata(programme, source_id)
+            added_actors, display_names = add_performer_metadata(programme, source_id)
+            if localize_taiwan_title(programme, source_id, display_names):
+                translated_programmes += 1
             if programme.find("sub-title") is not None and source_id in TAIWAN_PERFORMER_SOURCE_IDS:
                 performer_programmes += 1
             performer_credits += added_actors
@@ -325,6 +436,8 @@ def main() -> None:
         "programmes": programme_total,
         "performer_programmes": performer_programmes,
         "performer_credits": performer_credits,
+        "translated_programmes": translated_programmes,
+        "translation_requests": translation_requests,
         "missing_source_ids": missing_source_ids,
         "freshness_checked_source_ids": sorted(FRESHNESS_REQUIRED_SOURCE_IDS),
         "sources": source_stats,
