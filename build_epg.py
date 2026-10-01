@@ -63,6 +63,8 @@ FRESHNESS_REQUIRED_SOURCE_IDS = {
 
 TAIWAN_PERFORMER_SOURCE_IDS = {"456834", "456835", "456836", "456841", "456842"}
 TAIWAN_SOURCE_IDS = FRESHNESS_REQUIRED_SOURCE_IDS
+VISIBLE_TITLE_MAX_CHARS = 30
+VISIBLE_TITLE_MIN_PROGRAM_CHARS = 12
 TRANSLATION_CACHE = Path(
     os.environ.get("EPG_TRANSLATION_CACHE", ROOT / ".translation-cache" / "title_zh_ja.json")
 )
@@ -257,21 +259,56 @@ def add_performer_metadata(programme: ET.Element, source_id: str) -> tuple[int, 
     return len(actors), display_names
 
 
-def localize_taiwan_title(programme: ET.Element, source_id: str, performers: str | None) -> bool:
-    """Make one title that both Lume and Lumen render; retain the Chinese original."""
+def shorten_visible_performers(performers: str, max_chars: int) -> str:
+    """Keep cast useful in narrow guide cells without silently cutting a name."""
+    names = [part.strip() for part in re.split(r"[,，、/]", performers) if part.strip()]
+    if len(names) > 1:
+        first = names[0]
+        compact = f"{first}ほか{len(names) - 1}名"
+        if len(compact) <= max_chars:
+            return compact
+    if len(performers) <= max_chars:
+        return performers
+    if max_chars <= 1:
+        return "…"
+    return performers[: max_chars - 1].rstrip() + "…"
+
+
+def shorten_visible_program_title(title: str, max_chars: int) -> tuple[str, bool]:
+    """Return an explicit summary instead of letting the client clip invisibly."""
+    compact = re.sub(r"\s+", " ", title).strip()
+    if len(compact) <= max_chars:
+        return compact, False
+    if max_chars <= 1:
+        return "…", True
+    return compact[: max_chars - 1].rstrip(" 、,，。.!！?？｜|-") + "…", True
+
+
+def localize_taiwan_title(
+    programme: ET.Element, source_id: str, performers: str | None
+) -> tuple[bool, bool]:
+    """Make one compact title both clients render; retain complete text in desc."""
     if source_id not in TAIWAN_SOURCE_IDS:
-        return False
+        return False, False
     title_nodes = programme.findall("title")
     if not title_nodes:
-        return False
+        return False, False
 
     original = (title_nodes[0].text or "").strip()
     if not original:
-        return False
+        return False, False
     translated = TITLE_TRANSLATIONS.get(translation_key(source_id, original), original).strip() or original
-    visible_title = translated
+    performer_label = None
     if performers:
-        visible_title = f"{visible_title}｜出演：{performers}"
+        performer_budget = max(
+            6,
+            VISIBLE_TITLE_MAX_CHARS - VISIBLE_TITLE_MIN_PROGRAM_CHARS - 2,
+        )
+        performer_label = shorten_visible_performers(performers, performer_budget)
+    prefix = f"【{performer_label}】" if performer_label else ""
+    title_budget = max(8, VISIBLE_TITLE_MAX_CHARS - len(prefix))
+    compact_title, shortened = shorten_visible_program_title(translated, title_budget)
+    visible_title = f"{prefix}{compact_title}"
 
     # Both clients reliably render the first/only title. Lume concatenates
     # multiple language variants, so keep exactly one title in this feed.
@@ -280,16 +317,21 @@ def localize_taiwan_title(programme: ET.Element, source_id: str, performers: str
     for extra in title_nodes[1:]:
         programme.remove(extra)
 
+    desc = programme.find("desc")
+    if desc is None:
+        desc = ET.Element("desc", {"lang": "ja"})
+        children = list(programme)
+        title_index = children.index(title_nodes[0])
+        programme.insert(title_index + 1, desc)
+    existing = (desc.text or "").strip()
+    details = []
+    if shortened:
+        details.append(f"番組名：{translated}")
     if translated != original:
-        desc = programme.find("desc")
-        if desc is None:
-            desc = ET.Element("desc", {"lang": "ja"})
-            children = list(programme)
-            title_index = children.index(title_nodes[0])
-            programme.insert(title_index + 1, desc)
-        existing = (desc.text or "").strip()
-        desc.text = f"原題：{original}" + (f"\n{existing}" if existing else "")
-    return translated != original
+        details.append(f"原題：{original}")
+    if details:
+        desc.text = "\n".join(details) + (f"\n{existing}" if existing else "")
+    return translated != original, shortened
 
 
 def download_xml(name: str, url: str) -> ET.Element:
@@ -391,6 +433,7 @@ def main() -> None:
     performer_programmes = 0
     performer_credits = 0
     translated_programmes = 0
+    shortened_visible_titles = 0
     for playlist_id, source_id in requested.items():
         source_channel = channels.get(source_id)
         if source_channel is None:
@@ -406,8 +449,11 @@ def main() -> None:
             programme = copy.deepcopy(source_programme)
             programme.set("channel", playlist_id)
             added_actors, display_names = add_performer_metadata(programme, source_id)
-            if localize_taiwan_title(programme, source_id, display_names):
+            translated, shortened = localize_taiwan_title(programme, source_id, display_names)
+            if translated:
                 translated_programmes += 1
+            if shortened:
+                shortened_visible_titles += 1
             if programme.find("sub-title") is not None and source_id in TAIWAN_PERFORMER_SOURCE_IDS:
                 performer_programmes += 1
             performer_credits += added_actors
@@ -437,6 +483,7 @@ def main() -> None:
         "performer_programmes": performer_programmes,
         "performer_credits": performer_credits,
         "translated_programmes": translated_programmes,
+        "shortened_visible_titles": shortened_visible_titles,
         "translation_requests": translation_requests,
         "missing_source_ids": missing_source_ids,
         "freshness_checked_source_ids": sorted(FRESHNESS_REQUIRED_SOURCE_IDS),
