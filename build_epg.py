@@ -4,6 +4,7 @@ import copy
 import csv
 import gzip
 import json
+import re
 import urllib.request
 import xml.etree.ElementTree as ET
 from collections import defaultdict
@@ -29,7 +30,7 @@ SOURCES = [
         "https://raw.githubusercontent.com/JulioCesarXY/EPG-LG-Channels/refs/heads/main/lg_epg_us.xml",
     ),
     # The former Taiwan aggregate mirror kept returning a large but expired
-    # January/February 2026 guide. Pull the live per-channel XMLTV endpoints
+    # January/February 2026 guide.  Pull the live per-channel XMLTV endpoints
     # instead so a high programme count cannot hide stale data.
     ("epgpw-tw-456834", "https://epg.pw/api/epg.xml?channel_id=456834"),
     ("epgpw-tw-456835", "https://epg.pw/api/epg.xml?channel_id=456835"),
@@ -56,6 +57,133 @@ FRESHNESS_REQUIRED_SOURCE_IDS = {
     "456841",
     "456842",
 }
+
+TAIWAN_PERFORMER_SOURCE_IDS = {"456834", "456835", "456836", "456841", "456842"}
+
+
+def clean_performer_name(value: str) -> str | None:
+    """Return a conservative performer name, or None for labels/garbled text."""
+    name = value.strip(" \t\r\n-－—:：;；,，、/。.")
+    name = re.sub(r"\s+", " ", name)
+    if not name or "?" in name or "�" in name:
+        return None
+    if name in {"素人", "素人太太"}:
+        return None
+    if any(marker in name for marker in ("潘朵啦", "歡迎來到", "成人娛樂", "AV女優")):
+        return None
+    if re.fullmatch(r"[A-Za-z]", name):
+        return None
+    if not (re.search(r"[\u3400-\u9fff々ぁ-んァ-ヶ]", name) or re.search(r"[A-Za-z]{2}", name)):
+        return None
+    return name if len(name) <= 80 else None
+
+
+def split_performer_names(value: str) -> list[str]:
+    names: list[str] = []
+    for part in re.split(r"[,，、/]", value):
+        name = clean_performer_name(part)
+        if name and name not in names:
+            names.append(name)
+    return names
+
+
+def first_match(desc: str, patterns: tuple[str, ...]) -> list[str]:
+    for pattern in patterns:
+        match = re.search(pattern, desc)
+        if match:
+            name = clean_performer_name(match.group("name"))
+            if name:
+                return [name]
+    return []
+
+
+def extract_performers(source_id: str, programme: ET.Element) -> tuple[list[str], str | None]:
+    """Extract only performer names exposed by the Taiwan guide itself."""
+    desc = programme.findtext("desc", default="").strip()
+    title = programme.findtext("title", default="").strip()
+    if not desc or source_id not in TAIWAN_PERFORMER_SOURCE_IDS:
+        return [], None
+
+    if source_id in {"456834", "456836"}:
+        leading = re.split(r"[。.]", desc, maxsplit=1)[0].strip()
+        actors = split_performer_names(leading)
+        return actors, leading if actors else None
+
+    if source_id == "456835":
+        leading = desc.split("......", 1)[0].strip(" .")
+        # A comma is the only reliable person boundary in this source. Keep
+        # space-only cast strings visible without inventing actor boundaries.
+        actors = split_performer_names(leading) if re.search(r"[,，]", leading) else []
+        return actors, leading or None
+
+    if source_id == "456841":
+        actors = first_match(
+            desc,
+            (
+                r"(?:獨家|新人)?女優(?P<name>[\u3400-\u9fff々]{2,8})",
+                r"^(?P<name>[\u3400-\u9fff々]{2,8})在丈夫",
+                r"^(?P<name>[\u3400-\u9fff々]{2,8})是(?:名|某名)",
+                r"^(?P<name>[\u3400-\u9fff々]{2,8})決定與",
+                r"一下(?P<name>[\u3400-\u9fff々]{2,8})的親密私語",
+                r"更加狂野的(?P<name>[\u3400-\u9fff々]{2,8})[，,]在絕頂",
+                r"暗戀對象(?P<name>[\u3400-\u9fff々]{2,8})坐在",
+                r"人妻(?P<name>[\u3400-\u9fff々]{2,8})竟淪為",
+                r"美容師(?P<name>[\u3400-\u9fff々]{2,8})是一位",
+                r"風俗妹(?P<name>[\u3400-\u9fff々]{2,8})在",
+            ),
+        )
+        return actors, "、".join(actors) if actors else None
+
+    # Banana descriptions use a handful of recurring editorial templates.
+    actors = first_match(
+        desc,
+        (
+            r"情色偶像\s*[-－—]\s*(?P<name>[\u3400-\u9fff々]{2,8})(?=[。！!，,])",
+            r"淫亂少女\s*[-－—]\s*(?P<name>[\u3400-\u9fff々]{2,8})(?=非常)",
+            r"超人氣熟女偶像\s*[-－—]\s*(?P<name>[\u3400-\u9fff々]{2,8})(?=終於)",
+            r"美爆乳\s*[-－—]\s*(?P<name>[\u3400-\u9fff々]{2,8})(?=自從)",
+            r"素人辣妹\s*[-－—]\s*(?P<name>[\u3400-\u9fff々]{2,8})(?=與您)",
+            r"美女模特兒\s*[-－—]\s*(?P<name>[\u3400-\u9fff々]{2,8})(?=終於)",
+            r"模特兒美少女\s*[-－—]\s*(?P<name>[\u3400-\u9fff々]{2,8})(?=在無碼)",
+            r"\](?P<name>[\u3400-\u9fff々]{2,10})所演出",
+            r"新婚妻子(?P<name>[\u3400-\u9fff々]{2,8})與丈夫",
+            r"擔任服務生的(?P<name>[\u3400-\u9fff々]{2,8})",
+            r"女人[，,]她是(?P<name>[\u3400-\u9fff々]{2,8})",
+        ),
+    )
+    if not actors:
+        title_match = re.search(r"[-－—](?P<name>[\u3400-\u9fff々]{2,10})(?:\(|$)", title)
+        if title_match:
+            name = clean_performer_name(title_match.group("name"))
+            actors = [name] if name else []
+    return actors, "、".join(actors) if actors else None
+
+
+def add_performer_metadata(programme: ET.Element, source_id: str) -> int:
+    actors, display_names = extract_performers(source_id, programme)
+    if not display_names:
+        return 0
+
+    if programme.find("sub-title") is None:
+        subtitle = ET.Element("sub-title", {"lang": "zh"})
+        subtitle.text = f"出演：{display_names}"
+        children = list(programme)
+        title_positions = [index for index, child in enumerate(children) if child.tag == "title"]
+        programme.insert((title_positions[-1] + 1) if title_positions else 0, subtitle)
+
+    if actors:
+        credits = programme.find("credits")
+        if credits is None:
+            credits = ET.Element("credits")
+            children = list(programme)
+            desc_positions = [index for index, child in enumerate(children) if child.tag == "desc"]
+            programme.insert((desc_positions[-1] + 1) if desc_positions else len(children), credits)
+        existing = {node.text for node in credits.findall("actor") if node.text}
+        for actor_name in actors:
+            if actor_name not in existing:
+                ET.SubElement(credits, "actor").text = actor_name
+                existing.add(actor_name)
+    return len(actors)
 
 
 def download_xml(name: str, url: str) -> ET.Element:
@@ -152,6 +280,8 @@ def main() -> None:
     )
     missing_source_ids: list[dict[str, str]] = []
     programme_total = 0
+    performer_programmes = 0
+    performer_credits = 0
     for playlist_id, source_id in requested.items():
         source_channel = channels.get(source_id)
         if source_channel is None:
@@ -166,6 +296,10 @@ def main() -> None:
         for source_programme in programmes.get(source_id, []):
             programme = copy.deepcopy(source_programme)
             programme.set("channel", playlist_id)
+            added_actors = add_performer_metadata(programme, source_id)
+            if programme.find("sub-title") is not None and source_id in TAIWAN_PERFORMER_SOURCE_IDS:
+                performer_programmes += 1
+            performer_credits += added_actors
             output.append(programme)
             programme_total += 1
 
@@ -175,7 +309,7 @@ def main() -> None:
             f"Refusing to publish incomplete guide: channels={channel_total}, programmes={programme_total}"
         )
 
-    # GitHub Actions uses Python 3.12. Keep local verification compatible
+    # GitHub Actions uses Python 3.12.  Keep local verification compatible
     # with older Python runtimes where ElementTree.indent is unavailable.
     if hasattr(ET, "indent"):
         ET.indent(output, space="  ")
@@ -189,6 +323,8 @@ def main() -> None:
         "generated_at_utc": generated_at,
         "channels": channel_total,
         "programmes": programme_total,
+        "performer_programmes": performer_programmes,
+        "performer_credits": performer_credits,
         "missing_source_ids": missing_source_ids,
         "freshness_checked_source_ids": sorted(FRESHNESS_REQUIRED_SOURCE_IDS),
         "sources": source_stats,
