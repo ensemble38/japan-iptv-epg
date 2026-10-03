@@ -6,12 +6,13 @@ import gzip
 import json
 import os
 import re
+import time
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 
@@ -24,6 +25,7 @@ SOURCES = [
     ("karenda", "https://raw.githubusercontent.com/karenda-jp/etc/refs/heads/main/guides.xml"),
     ("epgshare-jp1", "https://epgshare01.online/epgshare01/epg_ripper_JP1.xml.gz"),
     ("epgshare-jp2", "https://epgshare01.online/epgshare01/epg_ripper_JP2.xml.gz"),
+    ("epgshare-kr1", "https://epgshare01.online/epgshare01/epg_ripper_KR1.xml.gz"),
     (
         "xumo-us",
         "https://raw.githubusercontent.com/BuddyChewChew/xumo-playlist-generator/refs/heads/main/playlists/xumo_epg.xml.gz",
@@ -41,6 +43,8 @@ SOURCES = [
     ("epgpw-tw-456838", "https://epg.pw/api/epg.xml?channel_id=456838"),
     ("epgpw-tw-456841", "https://epg.pw/api/epg.xml?channel_id=456841"),
     ("epgpw-tw-456842", "https://epg.pw/api/epg.xml?channel_id=456842"),
+    ("epgpw-cnn-international", "https://epg.pw/api/epg.xml?channel_id=76797"),
+    ("epgpw-jimjam", "https://epg.pw/api/epg.xml?channel_id=7218"),
 ]
 
 REFERENCE_IDS = [
@@ -335,14 +339,41 @@ def localize_taiwan_title(
 
 
 def download_xml(name: str, url: str) -> ET.Element:
+    """Download a complete XMLTV source; transient timeouts must not erase guide coverage."""
+    cache_candidates = (
+        ROOT / f".source-cache-{name}.xml.gz",
+        ROOT / f".source-cache-{name}.xml",
+    )
+    for cache_path in cache_candidates:
+        if cache_path.exists():
+            payload = cache_path.read_bytes()
+            if cache_path.suffix == ".gz":
+                payload = gzip.decompress(payload)
+            root = ET.fromstring(payload)
+            if root.tag != "tv":
+                raise RuntimeError(f"{name}: cached XMLTV root is {root.tag!r}, expected 'tv'")
+            print(f"source={name} mode=cache channels={len(root.findall('channel'))}", flush=True)
+            return root
     request = urllib.request.Request(url, headers={"User-Agent": "japan-iptv-epg-builder/1.0"})
-    with urllib.request.urlopen(request, timeout=90) as response:
-        payload = response.read()
+    last_error = None
+    for attempt in range(1, 4):
+        try:
+            with urllib.request.urlopen(request, timeout=180) as response:
+                payload = response.read()
+            break
+        except OSError as error:
+            last_error = error
+            if attempt == 3:
+                raise RuntimeError(f"{name}: download failed after {attempt} attempts: {error}") from error
+            time.sleep(attempt * 3)
+    else:  # pragma: no cover - defensive; the loop either succeeds or raises.
+        raise RuntimeError(f"{name}: download failed: {last_error}")
     if url.endswith(".gz"):
         payload = gzip.decompress(payload)
     root = ET.fromstring(payload)
     if root.tag != "tv":
         raise RuntimeError(f"{name}: XMLTV root is {root.tag!r}, expected 'tv'")
+    print(f"source={name} mode=network channels={len(root.findall('channel'))}", flush=True)
     return root
 
 
@@ -392,12 +423,21 @@ def main() -> None:
                 seen_programmes.add(key)
 
     requested: dict[str, str] = {}
+    display_names: dict[str, str] = {}
+    fallback_titles: dict[str, str] = {}
     with MAPPING.open(encoding="utf-8-sig", newline="") as handle:
         for row in csv.DictReader(handle):
             playlist_id = row.get("tvg_id", "").strip()
             source_id = row.get("source_id", "").strip()
-            if playlist_id and source_id:
-                requested.setdefault(playlist_id, source_id)
+            if not playlist_id:
+                continue
+            requested.setdefault(playlist_id, source_id)
+            display_name = row.get("display_name", "").strip()
+            fallback_title = row.get("fallback_title", "").strip()
+            if display_name:
+                display_names.setdefault(playlist_id, display_name)
+            if fallback_title:
+                fallback_titles.setdefault(playlist_id, fallback_title)
     for reference_id in REFERENCE_IDS:
         requested.setdefault(reference_id, reference_id)
 
@@ -435,21 +475,27 @@ def main() -> None:
     translated_programmes = 0
     shortened_visible_titles = 0
     for playlist_id, source_id in requested.items():
-        source_channel = channels.get(source_id)
+        source_channel = channels.get(source_id) if source_id else None
         if source_channel is None:
-            missing_source_ids.append({"tvg_id": playlist_id, "source_id": source_id})
-            continue
-        channel = copy.deepcopy(source_channel)
+            if source_id:
+                missing_source_ids.append({"tvg_id": playlist_id, "source_id": source_id})
+            channel = ET.Element("channel", {"id": playlist_id})
+            ET.SubElement(channel, "display-name", {"lang": "ja"}).text = display_names.get(
+                playlist_id, playlist_id
+            )
+        else:
+            channel = copy.deepcopy(source_channel)
         channel.set("id", playlist_id)
         output.append(channel)
+    fallback_channels: list[str] = []
+    fallback_programmes = 0
     for playlist_id, source_id in requested.items():
-        if source_id not in channels:
-            continue
-        for source_programme in programmes.get(source_id, []):
+        source_programmes = programmes.get(source_id, []) if source_id in channels else []
+        for source_programme in source_programmes:
             programme = copy.deepcopy(source_programme)
             programme.set("channel", playlist_id)
-            added_actors, display_names = add_performer_metadata(programme, source_id)
-            translated, shortened = localize_taiwan_title(programme, source_id, display_names)
+            added_actors, performer_display_names = add_performer_metadata(programme, source_id)
+            translated, shortened = localize_taiwan_title(programme, source_id, performer_display_names)
             if translated:
                 translated_programmes += 1
             if shortened:
@@ -459,11 +505,37 @@ def main() -> None:
             performer_credits += added_actors
             output.append(programme)
             programme_total += 1
+        if not source_programmes:
+            fallback_channels.append(playlist_id)
+            block_start = now.replace(minute=0, second=0, microsecond=0)
+            fallback_title = fallback_titles.get(playlist_id, display_names.get(playlist_id, "番組情報未提供"))
+            for block in range(84):
+                start = block_start + timedelta(hours=block * 2)
+                stop = start + timedelta(hours=2)
+                programme = ET.Element(
+                    "programme",
+                    {
+                        "channel": playlist_id,
+                        "start": start.strftime("%Y%m%d%H%M%S +0000"),
+                        "stop": stop.strftime("%Y%m%d%H%M%S +0000"),
+                    },
+                )
+                ET.SubElement(programme, "title", {"lang": "ja"}).text = fallback_title
+                ET.SubElement(programme, "desc", {"lang": "ja"}).text = (
+                    "詳細番組表を取得できないため、チャンネル名を表示しています。"
+                )
+                output.append(programme)
+                programme_total += 1
+                fallback_programmes += 1
 
     channel_total = len(output.findall("channel"))
-    if channel_total < 105 or programme_total < 5000:
+    programme_channels = {item.get("channel", "") for item in output.findall("programme")}
+    no_programme_channels = sorted(set(requested) - programme_channels)
+    if channel_total != len(requested) or no_programme_channels or programme_total < 5000:
         raise RuntimeError(
-            f"Refusing to publish incomplete guide: channels={channel_total}, programmes={programme_total}"
+            "Refusing to publish incomplete guide: "
+            f"channels={channel_total}/{len(requested)}, programmes={programme_total}, "
+            f"no_programme_channels={no_programme_channels}"
         )
 
     # GitHub Actions uses Python 3.12.  Keep local verification compatible
@@ -486,6 +558,8 @@ def main() -> None:
         "shortened_visible_titles": shortened_visible_titles,
         "translation_requests": translation_requests,
         "missing_source_ids": missing_source_ids,
+        "fallback_channels": fallback_channels,
+        "fallback_programmes": fallback_programmes,
         "freshness_checked_source_ids": sorted(FRESHNESS_REQUIRED_SOURCE_IDS),
         "sources": source_stats,
     }
