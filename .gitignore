@@ -1,0 +1,5 @@
+.translation-cache/
+public/japan_iptv_epg.xml
+public/japan_iptv_epg.xml.gz
+public/status.json
+__pycache__/
