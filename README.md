@@ -4,8 +4,8 @@ Hourly XMLTV guide for the Japan IPTV playlist (EPG data only; no stream URLs).
 
 The builder merges Japanese sources with the current Xumo US, LG Channels US,
 and Taiwan Traditional Chinese guides. Playlist IDs are normalized through
-`channels.csv`; this includes UFC FAST, F1 Channel, and the live Taiwan
-`驚豔成人電影台` feed.
+`channels.csv`; this includes UFC FAST, F1 Channel, the live Taiwan adult
+feeds, and ten verified public Taiwan channels.
 
 Taiwan programme titles are translated to Japanese and formatted as
 `【出演者】日本語タイトル` so clients that only render XMLTV `<title>`

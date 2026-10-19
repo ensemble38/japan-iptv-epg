@@ -43,6 +43,12 @@ SOURCES = [
     ("epgpw-tw-456838", "https://epg.pw/api/epg.xml?channel_id=456838"),
     ("epgpw-tw-456841", "https://epg.pw/api/epg.xml?channel_id=456841"),
     ("epgpw-tw-456842", "https://epg.pw/api/epg.xml?channel_id=456842"),
+    ("epgpw-tw-456632", "https://epg.pw/api/epg.xml?channel_id=456632"),
+    ("epgpw-tw-456622", "https://epg.pw/api/epg.xml?channel_id=456622"),
+    ("epgpw-tw-370249", "https://epg.pw/api/epg.xml?channel_id=370249"),
+    ("epgpw-tw-370248", "https://epg.pw/api/epg.xml?channel_id=370248"),
+    ("epgpw-tw-543802", "https://epg.pw/api/epg.xml?channel_id=543802"),
+    ("epgpw-tw-456640", "https://epg.pw/api/epg.xml?channel_id=456640"),
     ("epgpw-cnn-international", "https://epg.pw/api/epg.xml?channel_id=76797"),
     ("epgpw-jimjam", "https://epg.pw/api/epg.xml?channel_id=7218"),
 ]
@@ -63,6 +69,12 @@ FRESHNESS_REQUIRED_SOURCE_IDS = {
     "456838",
     "456841",
     "456842",
+    "456632",
+    "456622",
+    "370249",
+    "370248",
+    "543802",
+    "456640",
 }
 
 TAIWAN_PERFORMER_SOURCE_IDS = {"456834", "456835", "456836", "456841", "456842"}
