@@ -42,6 +42,7 @@ BLANK_ID_BY_CHANNEL_NUMBER = {
     "AD909": "AdultIPTVPornstar.int",
     "AD910": "AdultIPTVPOV.int",
     "AD920": "AoShi1.tw",
+    "AD921": "Taiwan3016.tw",
     "AD922": "AoShi2.tw",
     "AD923": "JennyLive.int",
     "AD924": "MiamiTVMexico.mx",
