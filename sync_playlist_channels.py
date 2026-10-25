@@ -52,6 +52,13 @@ SOURCE_ALIASES = {
     "fastch_v2_travl": "FastTV_travl",
     "rch_98": "rch_125",
     "BSShochikuTokyu.jp": "J:COM.BS.jp",
+    "BrazzersTVEurope.nl": "6926",
+    "ExtasyTV.cz": "6009",
+    "EroXXXHD.nl": "7767",
+    "DorcelTV.fr": "7461",
+    "LeoTV.cz": "390419",
+    "RealityKingsTV.us": "390425",
+    "PrivateTV.nl": "41290",
 }
 
 DIRECT_SOURCE_IDS = {

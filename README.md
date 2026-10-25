@@ -22,6 +22,12 @@ and Taiwan Traditional Chinese guides. Playlist IDs are normalized through
 `channels.csv`; this includes UFC FAST, F1 Channel, the live Taiwan adult
 feeds, and ten verified public Taiwan channels.
 
+The complete guide also maps current schedules for Brazzers TV Europe, Extasy
+TV, EroXXX HD, Dorcel TV, Leo TV, Reality Kings TV, and Private TV. Other adult
+stations receive name-only fallback blocks when their source guide is empty or
+unverified. The matching streams and their verified backup routes exist only in
+the complete playlist; neither the Kodi playlist nor Kodi EPG contains them.
+
 Taiwan programme titles are translated to Japanese and formatted as
 `【出演者】日本語タイトル` so clients that only render XMLTV `<title>`
 (including Lume and Lumen) show both fields without silent clipping. Full and

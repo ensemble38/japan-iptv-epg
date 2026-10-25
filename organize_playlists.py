@@ -52,6 +52,180 @@ NEW_CHANNELS = [
     ),
 ]
 
+ADULT_BLOCKS = [
+    [
+        '#EXTINF:-1 tvg-id="BabesTV.cz" tvg-name="Babes TV" tvg-chno="AD929" '
+        'tvg-logo="https://epg.iptvx.one/picons/babes-tv.png" group-title="99 成人・年齢制限",'
+        'Babes TV（海外・12秒A/V・ロゴ確認済）',
+        "#EXTVLCOPT:http-user-agent=SmartTV",
+        "#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=SmartTV",
+        "http://88.212.7.11/live/test_basbes_hd_hevc/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="BrazzersTVEurope.nl" tvg-name="Brazzers TV Europe" tvg-chno="AD930" '
+        'tvg-logo="https://epg.iptvx.one/picons/brazzers.png" group-title="99 成人・年齢制限",'
+        'Brazzers TV Europe（海外・12秒A/V・ロゴ確認済）',
+        "#EXTVLCOPT:http-user-agent=SmartTV",
+        "#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=SmartTV",
+        "http://88.212.7.11/live/test_brazzers_hd_hevc/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="ExtasyTV.cz" tvg-name="Extasy TV" tvg-chno="AD931" '
+        'tvg-logo="https://epg.iptvx.one/picons/extasytv.png" group-title="99 成人・年齢制限",'
+        'Extasy TV（海外・12秒A/V・ロゴ確認済）',
+        "#EXTVLCOPT:http-user-agent=SmartTV",
+        "#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=SmartTV",
+        "http://88.212.7.11/live/test_extasy_hd_hevc/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="DesireTV.int" tvg-name="Desire" tvg-chno="AD932" '
+        'tvg-logo="http://epg.one/img2/3164.png" group-title="99 成人・年齢制限",'
+        'Desire（海外・12秒A/V・ロゴ確認済）',
+        "#EXTVLCOPT:http-user-agent=SmartTV",
+        "#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=SmartTV",
+        "http://88.212.7.11/live/test_desire_hd_hevc/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="EroXHD.nl" tvg-name="EroX HD" tvg-chno="AD933" '
+        'tvg-logo="https://epg.iptvx.one/picons/erox-ua.png" group-title="99 成人・年齢制限",'
+        'EroX HD（海外・12秒A/V・ロゴ確認済）',
+        "#EXTVLCOPT:http-user-agent=SmartTV",
+        "#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=SmartTV",
+        "http://88.212.7.11/live/test_erox_hd_hevc/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="EroXXXHD.nl" tvg-name="EroXXX HD" tvg-chno="AD934" '
+        'tvg-logo="https://epg.iptvx.one/picons/eroxxxhd.png" group-title="99 成人・年齢制限",'
+        'EroXXX HD（海外・12秒A/V・ロゴ確認済）',
+        "#EXTVLCOPT:http-user-agent=SmartTV",
+        "#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=SmartTV",
+        "http://212.102.38.45/live/test_eroxxx_hd_hevc/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="DorcelTV.fr" tvg-name="Dorcel TV" tvg-chno="AD935" '
+        'tvg-logo="https://epg.iptvx.one/picons/dorcel.png" group-title="99 成人・年齢制限",'
+        'Dorcel TV（海外・12秒A/V・ロゴ確認済）',
+        "#EXTVLCOPT:http-user-agent=SmartTV",
+        "#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=SmartTV",
+        "http://88.212.7.11/live/test_dorcel_hd_hevc/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="LeoTV.cz" tvg-name="Leo TV" tvg-chno="AD936" '
+        'tvg-logo="https://epg.iptvx.one/picons/leo-tv-xxx.png" group-title="99 成人・年齢制限",'
+        'Leo TV（海外・12秒A/V・ロゴ確認済）',
+        "#EXTVLCOPT:http-user-agent=SmartTV",
+        "#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=SmartTV",
+        "http://88.212.7.11/live/test_leo_hd_hevc/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="LeoTVGold.cz" tvg-name="Leo TV Gold" tvg-chno="AD937" '
+        'tvg-logo="https://epg.iptvx.one/picons/leo-tv-xxx.png" group-title="99 成人・年齢制限",'
+        'Leo TV Gold（海外・12秒A/V・ロゴ確認済）',
+        "#EXTVLCOPT:http-user-agent=SmartTV",
+        "#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=SmartTV",
+        "http://88.212.7.11/live/test_leogold_hd_hevc/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="RealityKingsTV.us" tvg-name="Reality Kings TV" tvg-chno="AD938" '
+        'tvg-logo="https://epg.iptvx.one/picons/reality-kings.png" group-title="99 成人・年齢制限",'
+        'Reality Kings TV（海外・12秒A/V・ロゴ確認済）',
+        "#EXTVLCOPT:http-user-agent=SmartTV",
+        "#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=SmartTV",
+        "http://88.212.7.11/live/test_realitykings_sd_hevc/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="Dusk.nl" tvg-name="Dusk" tvg-chno="AD939" '
+        'tvg-logo="https://www.lyngsat.com/logo/tv/dd/dusk-tv-nl.svg" group-title="99 成人・年齢制限",'
+        'Dusk（海外・12秒A/V・ロゴ確認済）',
+        "#EXTVLCOPT:http-user-agent=SmartTV",
+        "#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=SmartTV",
+        "http://88.212.7.11/live/test_dusk_sd_hevc/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="PornClassic.br" tvg-name="Porn Classic" tvg-chno="AD940" '
+        'group-title="99 成人・年齢制限",Porn Classic（海外・12秒A/V・ロゴ確認済）',
+        "http://200.194.238.229:8383/live/pornclassic/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="PrivateTV.nl" tvg-name="Private TV" tvg-chno="AD941" '
+        'tvg-logo="https://epg.iptvx.one/picons/private-tv.png" group-title="99 成人・年齢制限",'
+        'Private TV（海外・12秒A/V・ロゴ確認済）',
+        "http://77.46.130.252:99/private",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="Taiwan1023.tw" tvg-name="台湾1023" tvg-chno="AD942" '
+        'group-title="99 成人・年齢制限",台湾1023（局名未確定・直TS・12秒A/V確認済）',
+        "http://125.227.210.55:1023/VideoInput/play.ts",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="JingYanAdultMovie.tw" tvg-name="驚豔成人電影台" tvg-chno="AD943" '
+        'group-title="99 成人・年齢制限",驚豔台（台湾・別CDN予備・12秒A/V・ロゴ確認済）',
+        "http://ctrl.yunshipin.bbroot.com:8080/streams/ds7fcf8th2/gc/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="RealityKingsTV.us" tvg-name="Reality Kings TV" tvg-chno="AD944" '
+        'tvg-logo="https://epg.iptvx.one/picons/reality-kings.png" group-title="99 成人・年齢制限",'
+        'Reality Kings TV（海外・別IP予備・12秒A/V確認済）',
+        "#EXTVLCOPT:http-user-agent=SmartTV",
+        "#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=SmartTV",
+        "http://212.102.38.45/live/test_realitykings_sd_hevc/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="BrazzersTVEurope.nl" tvg-name="Brazzers TV Europe" tvg-chno="AD945" '
+        'tvg-logo="https://epg.iptvx.one/picons/brazzers.png" group-title="99 成人・年齢制限",'
+        'Brazzers TV Europe（海外・別IP予備・12秒A/V確認済）',
+        "#EXTVLCOPT:http-user-agent=SmartTV",
+        "#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=SmartTV",
+        "http://212.102.38.45/live/test_brazzers_hd_hevc/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="DesireTV.int" tvg-name="Desire" tvg-chno="AD946" '
+        'tvg-logo="http://epg.one/img2/3164.png" group-title="99 成人・年齢制限",'
+        'Desire（海外・別IP予備・12秒A/V確認済）',
+        "#EXTVLCOPT:http-user-agent=SmartTV",
+        "#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=SmartTV",
+        "http://212.102.38.45/live/test_desire_hd_hevc/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="ExtasyTV.cz" tvg-name="Extasy TV" tvg-chno="AD947" '
+        'tvg-logo="https://epg.iptvx.one/picons/extasytv.png" group-title="99 成人・年齢制限",'
+        'Extasy TV（海外・別IP予備・12秒A/V確認済）',
+        "#EXTVLCOPT:http-user-agent=SmartTV",
+        "#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=SmartTV",
+        "http://212.102.38.45/live/test_extasy_hd_hevc/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="DorcelTV.fr" tvg-name="Dorcel TV" tvg-chno="AD948" '
+        'tvg-logo="https://epg.iptvx.one/picons/dorcel.png" group-title="99 成人・年齢制限",'
+        'Dorcel TV（海外・別IP予備・12秒A/V確認済）',
+        "#EXTVLCOPT:http-user-agent=SmartTV",
+        "#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=SmartTV",
+        "http://212.102.38.45/live/test_dorcel_hd_hevc/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="EroXHD.nl" tvg-name="EroX HD" tvg-chno="AD949" '
+        'tvg-logo="https://epg.iptvx.one/picons/erox-ua.png" group-title="99 成人・年齢制限",'
+        'EroX HD（海外・別IP予備・12秒A/V確認済）',
+        "#EXTVLCOPT:http-user-agent=SmartTV",
+        "#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=SmartTV",
+        "http://212.102.38.45/live/test_erox_hd_hevc/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="BabesTV.cz" tvg-name="Babes TV" tvg-chno="AD950" '
+        'tvg-logo="https://epg.iptvx.one/picons/babes-tv.png" group-title="99 成人・年齢制限",'
+        'Babes TV（海外・別IP予備・12秒A/V確認済）',
+        "#EXTVLCOPT:http-user-agent=SmartTV",
+        "#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=SmartTV",
+        "http://212.102.38.45/live/test_basbes_hd_hevc/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="DorcelTV.fr" tvg-name="Dorcel TV" tvg-chno="AD951" '
+        'tvg-logo="https://epg.iptvx.one/picons/dorcel.png" group-title="99 成人・年齢制限",'
+        'Dorcel TV（海外・別配信元予備・12秒A/V・ロゴ確認済）',
+        "http://77.46.130.252:99/dorcel",
+    ],
+]
+
 CID_CHANNELS = [
     ("WOWOWCinema.jp", "WOWOWシネマ", "bs07", "02 BS", False),
     ("StarBS10.jp", "BS10プレミアム", "bs08", "02 BS", False),
@@ -152,6 +326,19 @@ def organize(path: Path) -> None:
         blocks.append([extinf, f"https://ri.shinori.my.id/pxx.php?shk_cid={cid}"])
         existing_ids.add(playlist_id)
 
+    if not tv_safe:
+        existing_urls = {
+            line
+            for block in blocks
+            for line in block[1:]
+            if line and not line.startswith("#")
+        }
+        for block in ADULT_BLOCKS:
+            url = next(line for line in block[1:] if line and not line.startswith("#"))
+            if url not in existing_urls:
+                blocks.append(block.copy())
+                existing_urls.add(url)
+
     for block in blocks:
         extinf = block[0]
         if tvg_id(extinf) in SPECIALIST_IDS:
@@ -181,6 +368,10 @@ def organize(path: Path) -> None:
         (
             "#NOTE:2026-10-25 added distinct live R-channel feeds for pets, igo/shogi and adult entertainment; "
             "the adult feed remains full-playlist-only."
+        ),
+        (
+            "#NOTE:2026-10-25 re-dug adult sources without content-category filtering: added 15 live routes "
+            "and 8 verified backup routes after 12-second A/V decode and visual channel checks; Kodi stays adult-free."
         ),
     ]
     for note in notes:

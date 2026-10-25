@@ -58,6 +58,13 @@ SOURCES = [
     ("epgpw-tw-456640", "https://epg.pw/api/epg.xml?channel_id=456640"),
     ("epgpw-cnn-international", "https://epg.pw/api/epg.xml?channel_id=76797"),
     ("epgpw-jimjam", "https://epg.pw/api/epg.xml?channel_id=7218"),
+    ("epgpw-adult-brazzers", "https://epg.pw/api/epg.xml?channel_id=6926"),
+    ("epgpw-adult-extasy", "https://epg.pw/api/epg.xml?channel_id=6009"),
+    ("epgpw-adult-eroxxx", "https://epg.pw/api/epg.xml?channel_id=7767"),
+    ("epgpw-adult-dorcel", "https://epg.pw/api/epg.xml?channel_id=7461"),
+    ("epgpw-adult-leo", "https://epg.pw/api/epg.xml?channel_id=390419"),
+    ("epgpw-adult-reality-kings", "https://epg.pw/api/epg.xml?channel_id=390425"),
+    ("epgpw-adult-private", "https://epg.pw/api/epg.xml?channel_id=41290"),
 ]
 
 REFERENCE_IDS = [
