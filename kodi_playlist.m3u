@@ -1,5 +1,5 @@
 #EXTM3U url-tvg="https://ensemble38.github.io/japan-iptv-epg/japan_iptv_kodi_epg.xml.gz" x-tvg-url="https://ensemble38.github.io/japan-iptv-epg/japan_iptv_kodi_epg.xml.gz" tvg-url="https://ensemble38.github.io/japan-iptv-epg/japan_iptv_kodi_epg.xml.gz"
-#BUILD:2026-10-25 channels=103 adult-group=0 taiwan-public=8
+#BUILD:2026-10-25 channels=118 adult-group=0 taiwan-public=8
 #NOTE:The 11 Taiwan routes removed on 2026-09-30 were restored because the revalidation incorrectly treated direct MPEG-TS responses as HLS manifests. Kodi remains untouched.
 #NOTE:2026-10-08 naori-test 49 dead routes replaced with Haruka 118.69.27.222 mappings; all 49 ffprobe plus 6s A/V decode passed; terrestrial 46/46 rechecked.
 #NOTE:2026-10-20 added 10 Taiwan public channels; master/child/current media segment revalidated. Dali uses the newest rolling segment because old entries expire.
@@ -9,6 +9,37 @@
 #NOTE:2026-10-25 full ffprobe audit removed 101 non-decodable entries and 6 MyCamTV promotional feeds; F1 FAST was repaired to HTTPS.
 
 #NOTE:2026-10-25 TV-safe Kodi edition excludes the adult group.
+#NOTE:2026-10-25 restored 8 Tokyo terrestrial and 7 BS simulcasts from a new relay; each passed 12-second A/V decode and visual station identification. BS11/BS12 error-slate feeds were rejected.
+#EXTINF:-1 tvg-id="JOAKDTV.jp" tvg-name="NHK東京・総合" tvg-chno="011" tvg-logo="https://tvguide.myjcom.jp/monomedia/ch_logo/otd/logo-7fe0-011-400x400.png" group-title="01 地上波",NHK総合（東京）
+https://ri.shinori.my.id/pxx.php?shk_cid=hdgd01
+#EXTINF:-1 tvg-id="JOABDTV.jp" tvg-name="NHK東京・教育" tvg-chno="021" tvg-logo="https://i.imgur.com/WxtftlO.png" group-title="01 地上波",NHK Eテレ（東京）
+https://ri.shinori.my.id/pxx.php?shk_cid=hdgd02
+#EXTINF:-1 tvg-id="JOAXDTV.jp" tvg-name="日本テレビ" tvg-chno="041" tvg-logo="https://i.imgur.com/ecbM7QS.png" group-title="01 地上波",日本テレビ
+https://ri.shinori.my.id/pxx.php?shk_cid=hdgd03
+#EXTINF:-1 tvg-id="JOEXDTV.jp" tvg-name="テレビ朝日" tvg-chno="051" tvg-logo="https://i.imgur.com/5XnMfcR.png" group-title="01 地上波",テレビ朝日
+https://ri.shinori.my.id/pxx.php?shk_cid=hdgd06
+#EXTINF:-1 tvg-id="JORXDTV.jp" tvg-name="TBS" tvg-chno="061" tvg-logo="https://i.imgur.com/jIZ9TlO.png" group-title="01 地上波",TBSテレビ
+https://ri.shinori.my.id/pxx.php?shk_cid=hdgd04
+#EXTINF:-1 tvg-id="JOTXDTV.jp" tvg-name="テレ東" tvg-chno="071" tvg-logo="https://i.imgur.com/U8jBxEi.png" group-title="01 地上波",テレビ東京
+https://ri.shinori.my.id/pxx.php?shk_cid=hdgd07
+#EXTINF:-1 tvg-id="JOCXDTV.jp" tvg-name="フジテレビ" tvg-chno="081" tvg-logo="https://i.imgur.com/epJYc7P.png" group-title="01 地上波",フジテレビ
+https://ri.shinori.my.id/pxx.php?shk_cid=hdgd05
+#EXTINF:-1 tvg-id="tokyomx1.jp" tvg-name="TOKYO MX1" tvg-chno="091" tvg-logo="https://tvguide.myjcom.jp/monomedia/ch_logo/otd/logo-7e87-091-400x400.png" group-title="01 地上波",TOKYO MX1
+https://ri.shinori.my.id/pxx.php?shk_cid=hdgd08
+#EXTINF:-1 tvg-id="NHKBS.jp" tvg-name="NHK BS" tvg-chno="BS101" group-title="02 BS",NHK BS
+https://ri.shinori.my.id/pxx.php?shk_cid=bs11
+#EXTINF:-1 tvg-id="NHKBSP4K.jp" tvg-name="NHK BSP4K" tvg-chno="BS101-4K" group-title="02 BS",NHK BSP4K
+https://ri.shinori.my.id/pxx.php?shk_cid=bs01
+#EXTINF:-1 tvg-id="BSNipponTV.jp" tvg-name="BS日テレ" tvg-chno="BS141" group-title="02 BS",BS日テレ
+https://ri.shinori.my.id/pxx.php?shk_cid=bs02
+#EXTINF:-1 tvg-id="BSAsahi.jp" tvg-name="BS朝日" tvg-chno="BS151" group-title="02 BS",BS朝日
+https://ri.shinori.my.id/pxx.php?shk_cid=bs03
+#EXTINF:-1 tvg-id="BSTBS.jp" tvg-name="BS-TBS" tvg-chno="BS161" group-title="02 BS",BS-TBS
+https://ri.shinori.my.id/pxx.php?shk_cid=bs04
+#EXTINF:-1 tvg-id="BSTVTokyo.jp" tvg-name="BSテレ東" tvg-chno="BS171" group-title="02 BS",BSテレ東
+https://ri.shinori.my.id/pxx.php?shk_cid=bs05
+#EXTINF:-1 tvg-id="BSFuji.jp" tvg-name="BSフジ" tvg-chno="BS181" group-title="02 BS",BSフジ
+https://ri.shinori.my.id/pxx.php?shk_cid=bs06
 #EXTINF:-1 tvg-id="rch_45" tvg-name="ウェザーニュースLiVE" tvg-chno="CH 106" tvg-logo="https://channel.rakuten.co.jp/service/img/logo/chlogo-with-number/106_whethernews.png" group-title="04 ニュース・天気",ウェザーニュースLiVE
 https://rch01e-alive-hls.akamaized.net/38fb45b25cdb05a1/out/v1/4e907bfabc684a1dae10df8431a84d21/index.m3u8
 #EXTINF:-1 tvg-id="rch_108" tvg-name="FNNプライムオンライン" tvg-chno="rch_108" tvg-logo="https://channel.rakuten.co.jp/service/img/logo/chlogo-with-number/105_fnn.png" group-title="04 ニュース・天気",FNNプライムオンライン
@@ -25,7 +56,7 @@ https://livetv.fastv.jp/channel_assembly/69607EBD725E0F65BEE4/master.m3u8
 https://livetv.fastv.jp/channel_assembly/69607D5C725E103DDF9D/master.m3u8
 #EXTINF:-1 tvg-id="rch_97" tvg-name="日ﾃﾚﾌﾟﾛﾚｽ ｱｰｶｲ部" tvg-logo="https://channel.rakuten.co.jp/service/img/logo/chlogo-with-number/124_ntvprowrestling.png" group-title="05 スポーツ",NTV Pro Wrestling
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01287-rakutentvjapan-ntv-pro-wrestling-hls-rakutenjp/playlist.m3u8
-#EXTINF:-1 tvg-id="tokyomx1.jp" tvg-chno="CH 108" tvg-logo="https://channel.rakuten.co.jp/service/img/logo/chlogo-with-number/108_mx.png" group-title="06 映画・ドラマ",TOKYO MX チャンネル
+#EXTINF:-1 tvg-id="tokyomx-fast.jp" tvg-chno="CH 108" tvg-logo="https://channel.rakuten.co.jp/service/img/logo/chlogo-with-number/108_mx.png" group-title="06 映画・ドラマ",TOKYO MX チャンネル
 https://rch01e-alive-hls.akamaized.net/38fb45b25cdb05a1/out/v1/972b41fe8a694e51a874f3693d55031f/index.m3u8
 #EXTINF:-1 tvg-id="fastch_v2_comdy" tvg-name="《09.30終》Lemino TV" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/comdy/channel_logo" group-title="06 映画・ドラマ",LeminoTV (FAST)
 https://livetv.fastv.jp/channel_assembly/696082290000105F1525/master.m3u8
