@@ -2,4 +2,8 @@
 public/japan_iptv_epg.xml
 public/japan_iptv_epg.xml.gz
 public/status.json
+public/japan_iptv_kodi_epg.xml
+public/japan_iptv_kodi_epg.xml.gz
+public/japan_iptv_kodi_tv_safe.m3u
+public/kodi_status.json
 __pycache__/

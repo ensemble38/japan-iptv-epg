@@ -6,6 +6,7 @@ import gzip
 import json
 import os
 import re
+import shutil
 import time
 import urllib.parse
 import urllib.request
@@ -19,6 +20,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 PUBLIC = ROOT / "public"
 MAPPING = ROOT / "channels.csv"
+KODI_MAPPING = ROOT / "kodi_channels.csv"
+KODI_PLAYLIST = ROOT / "kodi_playlist.m3u"
 
 SOURCES = [
     ("japanterebi", "https://animenosekai.github.io/japanterebi-xmltv/guide.xml"),
@@ -408,6 +411,15 @@ def xmltv_timestamp(value: str) -> datetime:
     raise ValueError(f"Unsupported XMLTV timestamp: {value!r}")
 
 
+def write_xmltv(root: ET.Element, stem: str) -> None:
+    if hasattr(ET, "indent"):
+        ET.indent(root, space="  ")
+    xml_path = PUBLIC / f"{stem}.xml"
+    ET.ElementTree(root).write(xml_path, encoding="utf-8", xml_declaration=True)
+    with xml_path.open("rb") as source, gzip.open(PUBLIC / f"{stem}.xml.gz", "wb", compresslevel=9) as target:
+        target.write(source.read())
+
+
 def main() -> None:
     PUBLIC.mkdir(parents=True, exist_ok=True)
     channels: dict[str, ET.Element] = {}
@@ -549,14 +561,43 @@ def main() -> None:
             f"no_programme_channels={no_programme_channels}"
         )
 
-    # GitHub Actions uses Python 3.12.  Keep local verification compatible
-    # with older Python runtimes where ElementTree.indent is unavailable.
-    if hasattr(ET, "indent"):
-        ET.indent(output, space="  ")
-    xml_path = PUBLIC / "japan_iptv_epg.xml"
-    ET.ElementTree(output).write(xml_path, encoding="utf-8", xml_declaration=True)
-    with xml_path.open("rb") as source, gzip.open(PUBLIC / "japan_iptv_epg.xml.gz", "wb", compresslevel=9) as target:
-        target.write(source.read())
+    with KODI_MAPPING.open(encoding="utf-8-sig", newline="") as handle:
+        kodi_ids = {
+            row.get("tvg_id", "").strip()
+            for row in csv.DictReader(handle)
+            if row.get("tvg_id", "").strip()
+        }
+    output_ids = {channel.get("id", "") for channel in output.findall("channel")}
+    missing_kodi_ids = sorted(kodi_ids - output_ids)
+    if missing_kodi_ids:
+        raise RuntimeError(f"Refusing to publish incomplete Kodi guide: missing={missing_kodi_ids}")
+
+    kodi_output = ET.Element("tv", dict(output.attrib))
+    for element in output:
+        if element.tag == "channel" and element.get("id", "") in kodi_ids:
+            kodi_output.append(copy.deepcopy(element))
+        elif element.tag == "programme" and element.get("channel", "") in kodi_ids:
+            kodi_output.append(copy.deepcopy(element))
+    kodi_channel_total = len(kodi_output.findall("channel"))
+    kodi_programme_total = len(kodi_output.findall("programme"))
+    kodi_programme_channels = {
+        item.get("channel", "") for item in kodi_output.findall("programme")
+    }
+    no_kodi_programme_channels = sorted(kodi_ids - kodi_programme_channels)
+    if (
+        kodi_channel_total != len(kodi_ids)
+        or no_kodi_programme_channels
+        or kodi_programme_total < 1000
+    ):
+        raise RuntimeError(
+            "Refusing to publish incomplete Kodi guide: "
+            f"channels={kodi_channel_total}/{len(kodi_ids)}, programmes={kodi_programme_total}, "
+            f"no_programme_channels={no_kodi_programme_channels}"
+        )
+
+    write_xmltv(output, "japan_iptv_epg")
+    write_xmltv(kodi_output, "japan_iptv_kodi_epg")
+    shutil.copyfile(KODI_PLAYLIST, PUBLIC / "japan_iptv_kodi_tv_safe.m3u")
 
     generated_at = datetime.now(timezone.utc).isoformat()
     status = {
@@ -575,7 +616,18 @@ def main() -> None:
         "sources": source_stats,
     }
     (PUBLIC / "status.json").write_text(json.dumps(status, ensure_ascii=False, indent=2), encoding="utf-8")
+    kodi_status = {
+        "generated_at_utc": generated_at,
+        "channels": kodi_channel_total,
+        "programmes": kodi_programme_total,
+        "adult_channels": 0,
+        "source_guide": "japan_iptv_epg.xml.gz",
+    }
+    (PUBLIC / "kodi_status.json").write_text(
+        json.dumps(kodi_status, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
     print(json.dumps(status, ensure_ascii=True, indent=2))
+    print(json.dumps({"kodi_guide": kodi_status}, ensure_ascii=True, indent=2))
 
 
 if __name__ == "__main__":

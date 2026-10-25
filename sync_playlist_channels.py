@@ -98,6 +98,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("playlist", type=Path)
     parser.add_argument("catalog", nargs="*", type=Path)
+    parser.add_argument("--mapping", type=Path, default=MAPPING)
     args = parser.parse_args()
 
     known_sources = source_ids(args.catalog)
@@ -106,7 +107,8 @@ def main() -> None:
     for playlist_id, name in playlist_channels:
         names.setdefault(playlist_id, name)
 
-    with MAPPING.open(encoding="utf-8-sig", newline="") as handle:
+    seed_mapping = args.mapping if args.mapping.exists() else MAPPING
+    with seed_mapping.open(encoding="utf-8-sig", newline="") as handle:
         existing = list(csv.DictReader(handle))
 
     rows: list[dict[str, str]] = []
@@ -144,7 +146,7 @@ def main() -> None:
         )
         seen.add(playlist_id)
 
-    with MAPPING.open("w", encoding="utf-8-sig", newline="") as handle:
+    with args.mapping.open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(
             handle,
             fieldnames=("tvg_id", "source_id", "display_name", "fallback_title"),

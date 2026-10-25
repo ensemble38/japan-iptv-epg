@@ -2,6 +2,12 @@
 
 Hourly XMLTV guide for the Japan IPTV playlist (EPG data only; no stream URLs).
 
+Two outputs are published: `japan_iptv_epg.xml.gz` preserves the complete
+playlist guide, while `japan_iptv_kodi_epg.xml.gz` is generated from
+`kodi_channels.csv` and excludes every adult-group channel for living-room TV use.
+The matching TV-safe playlist is published as `japan_iptv_kodi_tv_safe.m3u`;
+the original complete playlist remains unchanged at its existing location.
+
 The builder merges Japanese sources with the current Xumo US, LG Channels US,
 and Taiwan Traditional Chinese guides. Playlist IDs are normalized through
 `channels.csv`; this includes UFC FAST, F1 Channel, the live Taiwan adult
