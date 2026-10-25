@@ -1,5 +1,5 @@
 #EXTM3U url-tvg="https://ensemble38.github.io/japan-iptv-epg/japan_iptv_kodi_epg.xml.gz" x-tvg-url="https://ensemble38.github.io/japan-iptv-epg/japan_iptv_kodi_epg.xml.gz" tvg-url="https://ensemble38.github.io/japan-iptv-epg/japan_iptv_kodi_epg.xml.gz"
-#BUILD:2026-10-25 channels=118 adult-group=0 taiwan-public=8
+#BUILD:2026-10-25 channels=120 adult-group=0 taiwan-public=8
 #NOTE:The 11 Taiwan routes removed on 2026-09-30 were restored because the revalidation incorrectly treated direct MPEG-TS responses as HLS manifests. Kodi remains untouched.
 #NOTE:2026-10-08 naori-test 49 dead routes replaced with Haruka 118.69.27.222 mappings; all 49 ffprobe plus 6s A/V decode passed; terrestrial 46/46 rechecked.
 #NOTE:2026-10-20 added 10 Taiwan public channels; master/child/current media segment revalidated. Dali uses the newest rolling segment because old entries expire.
@@ -10,6 +10,7 @@
 
 #NOTE:2026-10-25 TV-safe Kodi edition excludes the adult group.
 #NOTE:2026-10-25 restored 8 Tokyo terrestrial and 7 BS simulcasts from a new relay; each passed 12-second A/V decode and visual station identification. BS11/BS12 error-slate feeds were rejected.
+#NOTE:2026-10-25 added verified official public NTV NEWS and MBS NEWS feeds; created 03 CS-specialist group and sorted all category prefixes numerically.
 #EXTINF:-1 tvg-id="JOAKDTV.jp" tvg-name="NHK東京・総合" tvg-chno="011" tvg-logo="https://tvguide.myjcom.jp/monomedia/ch_logo/otd/logo-7fe0-011-400x400.png" group-title="01 地上波",NHK総合（東京）
 https://ri.shinori.my.id/pxx.php?shk_cid=hdgd01
 #EXTINF:-1 tvg-id="JOABDTV.jp" tvg-name="NHK東京・教育" tvg-chno="021" tvg-logo="https://i.imgur.com/WxtftlO.png" group-title="01 地上波",NHK Eテレ（東京）
@@ -40,6 +41,18 @@ https://ri.shinori.my.id/pxx.php?shk_cid=bs04
 https://ri.shinori.my.id/pxx.php?shk_cid=bs05
 #EXTINF:-1 tvg-id="BSFuji.jp" tvg-name="BSフジ" tvg-chno="BS181" group-title="02 BS",BSフジ
 https://ri.shinori.my.id/pxx.php?shk_cid=bs06
+#EXTINF:-1 tvg-id="fastch_v2_samri" tvg-name="《09.30終》時代劇TV（Powered by 時代劇専門チャンネル）" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/samri/channel_logo" group-title="03 CS・専門",時代劇TV (FAST)
+https://livetv.fastv.jp/channel_assembly/696074B664B80F46A876/master.m3u8
+#EXTINF:-1 tvg-id="fastch_v2_kids" tvg-name="《09.30終》アニマックスFREE" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/kids/channel_logo" group-title="03 CS・専門",アニマックス FREE (FAST)
+https://livetv.fastv.jp/channel_assembly/69608FB2725E0FA3B972/master.m3u8
+#EXTINF:-1 tvg-id="fastch_v2_goshogi" tvg-name="《09.30終》囲碁・将棋ライト" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/goshogi/channel_logo" group-title="03 CS・専門",囲碁・将棋ライト (FAST)
+https://livetv.fastv.jp/channel_assembly/69998C7B725E30DA4170/master.m3u8
+#EXTINF:-1 tvg-id="ShopChannel.jp" tvg-name="ショップチャンネル ４Ｋ" tvg-chno="CS055" tvg-logo="https://i.imgur.com/CCMAF7W.png" group-title="03 CS・専門",ショップチャンネル
+https://stream3.shopch.jp/HLS/master.m3u8
+#EXTINF:-1 tvg-id="GSTV.jp@SD" tvg-name="GSTV（宝石専門ch）" tvg-logo="https://i.imgur.com/ECnVG5I.png" group-title="03 CS・専門",GSTV (720p)
+https://japaneast.av.mk.io/mediakindcdn-mediakind/ca01a143-f823-4432-b670-c22ff9643ce4/index.qfm/manifest(format=m3u8-cmaf)
+#EXTINF:-1 tvg-id="QVC.jp@SD" tvg-name="4Ｋ QVC" tvg-logo="https://i.imgur.com/6TWUVrh.png" group-title="03 CS・専門",QVC (Japan) (1080p)
+https://d1flvb4iqlercm.cloudfront.net/live/live_1080p_2nd.m3u8
 #EXTINF:-1 tvg-id="rch_45" tvg-name="ウェザーニュースLiVE" tvg-chno="CH 106" tvg-logo="https://channel.rakuten.co.jp/service/img/logo/chlogo-with-number/106_whethernews.png" group-title="04 ニュース・天気",ウェザーニュースLiVE
 https://rch01e-alive-hls.akamaized.net/38fb45b25cdb05a1/out/v1/4e907bfabc684a1dae10df8431a84d21/index.m3u8
 #EXTINF:-1 tvg-id="rch_108" tvg-name="FNNプライムオンライン" tvg-chno="rch_108" tvg-logo="https://channel.rakuten.co.jp/service/img/logo/chlogo-with-number/105_fnn.png" group-title="04 ニュース・天気",FNNプライムオンライン
@@ -52,6 +65,10 @@ https://livetv.fastv.jp/channel_assembly/6960899D64B80F9C740C/master.m3u8
 https://cdn-apne1.tsv2.amagi.tv/linear/amg01287-rakutentvjapan-news2cmafhls-rakutenjp/playlist.m3u8
 #EXTINF:-1 tvg-id="fastch_v2_busns" tvg-name="《09.30終》ビジネス・プレミアムチャンネル" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/busns/channel_logo" group-title="04 ニュース・天気",ビジネス・プレミアム (FAST)
 https://livetv.fastv.jp/channel_assembly/69607EBD725E0F65BEE4/master.m3u8
+#EXTINF:-1 tvg-id="rch_47" tvg-name="日テレNEWS" tvg-chno="CH 104" tvg-logo="https://channel.rakuten.co.jp/service/img/logo/chlogo-with-number/104_ntvnews.png" group-title="04 ニュース・天気",日テレNEWS（公開配信）
+https://cdn-apne1.tsv2.amagi.tv/linear/amg01287-rakutentvjapan-news1hlscmaf-rakutenjp/playlist.m3u8
+#EXTINF:-1 tvg-id="rch_115" tvg-name="MBSニュース" tvg-chno="CH 106" tvg-logo="https://channel.rakuten.co.jp/service/img/logo/chlogo-with-number/106_mbs.png" group-title="04 ニュース・天気",MBSニュース（公開配信）
+https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01287-rakutentvjapan-news5-cmaf-rakutenjp/playlist.m3u8
 #EXTINF:-1 tvg-id="fastch_v2_bgolf" tvg-name="《09.30終》GOLF LIFE" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/bgolf/channel_logo" group-title="05 スポーツ",GOLF LIFE (FAST)
 https://livetv.fastv.jp/channel_assembly/69607D5C725E103DDF9D/master.m3u8
 #EXTINF:-1 tvg-id="rch_97" tvg-name="日ﾃﾚﾌﾟﾛﾚｽ ｱｰｶｲ部" tvg-logo="https://channel.rakuten.co.jp/service/img/logo/chlogo-with-number/124_ntvprowrestling.png" group-title="05 スポーツ",NTV Pro Wrestling
@@ -62,187 +79,175 @@ https://rch01e-alive-hls.akamaized.net/38fb45b25cdb05a1/out/v1/972b41fe8a694e51a
 https://livetv.fastv.jp/channel_assembly/696082290000105F1525/master.m3u8
 #EXTINF:-1 tvg-id="fastch_v2_asdrm" tvg-name="《09.30終》エンタメ・アジアFree" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/asdrm/channel_logo" group-title="06 映画・ドラマ",エンタメ・アジア (FAST)
 https://livetv.fastv.jp/channel_assembly/696078CF64B81069221E/master.m3u8
-#EXTINF:-1 tvg-id="fastch_v2_samri" tvg-name="《09.30終》時代劇TV（Powered by 時代劇専門チャンネル）" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/samri/channel_logo" group-title="06 映画・ドラマ",時代劇TV (FAST)
-https://livetv.fastv.jp/channel_assembly/696074B664B80F46A876/master.m3u8
-#EXTINF:-1 tvg-id="fastch_v2_kids" tvg-name="《09.30終》アニマックスFREE" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/kids/channel_logo" group-title="07 アニメ・キッズ",アニマックス FREE (FAST)
-https://livetv.fastv.jp/channel_assembly/69608FB2725E0FA3B972/master.m3u8
-#EXTINF:-1 tvg-id="rch_113" tvg-name="ぷれいば！ ～ゲーム専門チャンネル～" tvg-logo="https://channel.rakuten.co.jp/service/img/logo/chlogo-with-number/196_game.png" group-title="09 趣味・ライフ",ぷれいば！
+#EXTINF:-1 tvg-id="rch_113" tvg-name="ぷれいば！ ～ゲーム専門チャンネル～" tvg-logo="https://channel.rakuten.co.jp/service/img/logo/chlogo-with-number/196_game.png" group-title="07 趣味・ライフ",ぷれいば！
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01287-rakutentvjapan-game-cmaf-rakutenjp/playlist.m3u8
-#EXTINF:-1 tvg-id="fastch_v2_camng" tvg-name="《09.30終》キャンプ・アウトドアチャンネルPowered byハピキャン" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/camng/channel_logo" group-title="09 趣味・ライフ",キャンプ・アウトドア (FAST)
+#EXTINF:-1 tvg-id="fastch_v2_camng" tvg-name="《09.30終》キャンプ・アウトドアチャンネルPowered byハピキャン" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/camng/channel_logo" group-title="07 趣味・ライフ",キャンプ・アウトドア (FAST)
 https://livetv.fastv.jp/channel_assembly/69607E1D725E0FB5AC23/master.m3u8
-#EXTINF:-1 tvg-id="fastch_v2_pett1" tvg-name="《09.30終》ペットTV" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/pett1/channel_logo" group-title="09 趣味・ライフ",ペットTV (FAST)
+#EXTINF:-1 tvg-id="fastch_v2_pett1" tvg-name="《09.30終》ペットTV" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/pett1/channel_logo" group-title="07 趣味・ライフ",ペットTV (FAST)
 https://livetv.fastv.jp/channel_assembly/69551F080000E209AD09/master.m3u8
-#EXTINF:-1 tvg-id="fastch_v2_travl" tvg-name="《09.30終》今日のごはん なに？" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/travl/channel_logo" group-title="09 趣味・ライフ",今日のごはんなに? (FAST)
+#EXTINF:-1 tvg-id="fastch_v2_travl" tvg-name="《09.30終》今日のごはん なに？" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/travl/channel_logo" group-title="07 趣味・ライフ",今日のごはんなに? (FAST)
 https://livetv.fastv.jp/channel_assembly/696095BC725E0FE5F3E9/master.m3u8
-#EXTINF:-1 tvg-id="fastch_v2_recip" tvg-name="《09.30終》観るたび PRODUCED by るるぶ" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/recip/channel_logo" group-title="09 趣味・ライフ",観るたび (FAST)
+#EXTINF:-1 tvg-id="fastch_v2_recip" tvg-name="《09.30終》観るたび PRODUCED by るるぶ" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/recip/channel_logo" group-title="07 趣味・ライフ",観るたび (FAST)
 https://livetv.fastv.jp/channel_assembly/6960965C64B80F2C027D/master.m3u8
-#EXTINF:-1 tvg-id="fastch_v2_snyon" tvg-name="《09.30終》FASHION+" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/snyon/channel_logo" group-title="10 地域・文化",FASHIONPLUS (FAST)
+#EXTINF:-1 tvg-id="fastch_v2_snyon" tvg-name="《09.30終》FASHION+" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/snyon/channel_logo" group-title="08 地域・文化",FASHIONPLUS (FAST)
 https://livetv.fastv.jp/channel_assembly/69609952725E0FA3B987/master.m3u8
-#EXTINF:-1 tvg-id="fastch_v2_jpthp" tvg-name="《09.30終》ぴあ落語ざんまい" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/jpthp/channel_logo" group-title="10 地域・文化",ぴあ落語ざんまい (FAST)
+#EXTINF:-1 tvg-id="fastch_v2_jpthp" tvg-name="《09.30終》ぴあ落語ざんまい" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/jpthp/channel_logo" group-title="08 地域・文化",ぴあ落語ざんまい (FAST)
 https://livetv.fastv.jp/channel_assembly/69608EE9725E0F73BF30/master.m3u8
-#EXTINF:-1 tvg-id="fastch_v2_news1" tvg-name="《09.30終》丸ごと九州ch" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/news1/channel_logo" group-title="10 地域・文化",丸ごと九州 (FAST)
+#EXTINF:-1 tvg-id="fastch_v2_news1" tvg-name="《09.30終》丸ごと九州ch" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/news1/channel_logo" group-title="08 地域・文化",丸ごと九州 (FAST)
 https://livetv.fastv.jp/channel_assembly/696090F573F51039B31F/master.m3u8
-#EXTINF:-1 tvg-id="fastch_v2_hokkaido" tvg-name="《09.30終》丸ごと北海道ch" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/hokkaido/channel_logo" group-title="10 地域・文化",丸ごと北海道 (FAST)
+#EXTINF:-1 tvg-id="fastch_v2_hokkaido" tvg-name="《09.30終》丸ごと北海道ch" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/hokkaido/channel_logo" group-title="08 地域・文化",丸ごと北海道 (FAST)
 https://livetv.fastv.jp/channel_assembly/69998D0964B83951E552/master.m3u8
-#EXTINF:-1 tvg-id="fastch_v2_goshogi" tvg-name="《09.30終》囲碁・将棋ライト" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/goshogi/channel_logo" group-title="10 地域・文化",囲碁・将棋ライト (FAST)
-https://livetv.fastv.jp/channel_assembly/69998C7B725E30DA4170/master.m3u8
-#EXTINF:-1 tvg-id="fastch_v2_tokai" tvg-name="《09.30終》東海ロキポch" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/tokai/channel_logo" group-title="10 地域・文化",東海ロキポ (FAST)
+#EXTINF:-1 tvg-id="fastch_v2_tokai" tvg-name="《09.30終》東海ロキポch" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/tokai/channel_logo" group-title="08 地域・文化",東海ロキポ (FAST)
 https://livetv.fastv.jp/channel_assembly/69998DB5725E30535DA6/master.m3u8
-#EXTINF:-1 tvg-id="fastch_v2_krdrm" tvg-name="《09.30終》韓流チャンネル" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/krdrm/channel_logo" group-title="10 地域・文化",韓流チャンネル (FAST)
+#EXTINF:-1 tvg-id="fastch_v2_krdrm" tvg-name="《09.30終》韓流チャンネル" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/krdrm/channel_logo" group-title="08 地域・文化",韓流チャンネル (FAST)
 https://livetv.fastv.jp/channel_assembly/6960905473F5101B6A17/master.m3u8
-#EXTINF:-1 tvg-id="ShopChannel.jp" tvg-name="ショップチャンネル ４Ｋ" tvg-chno="CS055" tvg-logo="https://i.imgur.com/CCMAF7W.png" group-title="11 通販",ショップチャンネル
-https://stream3.shopch.jp/HLS/master.m3u8
-#EXTINF:-1 tvg-id="GSTV.jp@SD" tvg-name="GSTV（宝石専門ch）" tvg-logo="https://i.imgur.com/ECnVG5I.png" group-title="11 通販",GSTV (720p)
-https://japaneast.av.mk.io/mediakindcdn-mediakind/ca01a143-f823-4432-b670-c22ff9643ce4/index.qfm/manifest(format=m3u8-cmaf)
-#EXTINF:-1 tvg-id="QVC.jp@SD" tvg-name="4Ｋ QVC" tvg-logo="https://i.imgur.com/6TWUVrh.png" group-title="11 通販",QVC (Japan) (1080p)
-https://d1flvb4iqlercm.cloudfront.net/live/live_1080p_2nd.m3u8
-#EXTINF:-1 tvg-id="RiBenGouWu1.jp" group-title="11 通販",日本购物1
+#EXTINF:-1 tvg-id="RiBenGouWu1.jp" group-title="09 通販",日本购物1
 http://stream1.shopch.jp/HLS/out1/prog_index.m3u8
-#EXTINF:-1 tvg-id="RiBenGouWu2.jp" group-title="11 通販",日本购物2
+#EXTINF:-1 tvg-id="RiBenGouWu2.jp" group-title="09 通販",日本购物2
 http://stream1.shopch.jp/HLS/out2/prog_index.m3u8
-#EXTINF:-1 tvg-id="RiBenGouWu3.jp" group-title="11 通販",日本购物3
+#EXTINF:-1 tvg-id="RiBenGouWu3.jp" group-title="09 通販",日本购物3
 http://stream1.shopch.jp/HLS/out3/prog_index.m3u8
-#EXTINF:-1 tvg-id="RiBenGouWu4.jp" group-title="11 通販",日本购物4
+#EXTINF:-1 tvg-id="RiBenGouWu4.jp" group-title="09 通販",日本购物4
 http://stream1.shopch.jp/HLS/out4/prog_index.m3u8
-#EXTINF:-1 tvg-id="CGNTVJapan.jp@SD" tvg-logo="https://i.imgur.com/5LNZeVq.png" group-title="12 宗教",CGNTV Japan (1080p)
+#EXTINF:-1 tvg-id="CGNTVJapan.jp@SD" tvg-logo="https://i.imgur.com/5LNZeVq.png" group-title="10 宗教",CGNTV Japan (1080p)
 https://d2p4mrcwl6ly4.cloudfront.net/out/v1/8d50f69fdbbf411a8d302743e4263716/CGNWebLiveJP.m3u8
-#EXTINF:-1 tvg-id="abema-news" group-title="13 ABEMA",ABEMA NEWSチャンネル
+#EXTINF:-1 tvg-id="abema-news" group-title="11 ABEMA",ABEMA NEWSチャンネル
 https://linear-abematv.akamaized.net/preview/channel/abema-news/playlist.m3u8
-#EXTINF:-1 tvg-id="news-plus" group-title="13 ABEMA",ABEMA NEWS会見チャンネル
+#EXTINF:-1 tvg-id="news-plus" group-title="11 ABEMA",ABEMA NEWS会見チャンネル
 https://linear-abematv.akamaized.net/preview/channel/news-plus/playlist.m3u8
-#EXTINF:-1 tvg-id="special-plus" group-title="13 ABEMA",ABEMA SPECIAL 2チャンネル
+#EXTINF:-1 tvg-id="special-plus" group-title="11 ABEMA",ABEMA SPECIAL 2チャンネル
 https://linear-abematv.akamaized.net/preview/channel/special-plus/playlist.m3u8
-#EXTINF:-1 tvg-id="abema-special" group-title="13 ABEMA",ABEMA SPECIALチャンネル
+#EXTINF:-1 tvg-id="abema-special" group-title="11 ABEMA",ABEMA SPECIALチャンネル
 https://linear-abematv.akamaized.net/preview/channel/abema-special/playlist.m3u8
-#EXTINF:-1 tvg-id="abema-anime" group-title="13 ABEMA",ABEMA アニメチャンネル
+#EXTINF:-1 tvg-id="abema-anime" group-title="11 ABEMA",ABEMA アニメチャンネル
 https://linear-abematv.akamaized.net/preview/channel/abema-anime/playlist.m3u8
-#EXTINF:-1 tvg-id="abema-anime-2" group-title="13 ABEMA",ABEMA アニメチャンネル2
+#EXTINF:-1 tvg-id="abema-anime-2" group-title="11 ABEMA",ABEMA アニメチャンネル2
 https://linear-abematv.akamaized.net/preview/channel/abema-anime-2/playlist.m3u8
-#EXTINF:-1 tvg-id="abema-anime-3" group-title="13 ABEMA",ABEMA アニメチャンネル3
+#EXTINF:-1 tvg-id="abema-anime-3" group-title="11 ABEMA",ABEMA アニメチャンネル3
 https://linear-abematv.akamaized.net/preview/channel/abema-anime-3/playlist.m3u8
-#EXTINF:-1 tvg-id="boatrace" group-title="13 ABEMA",BOATRACEチャンネル
+#EXTINF:-1 tvg-id="boatrace" group-title="11 ABEMA",BOATRACEチャンネル
 https://linear-abematv.akamaized.net/preview/channel/boatrace/playlist.m3u8
-#EXTINF:-1 tvg-id="commercial" group-title="13 ABEMA",CMチャンネル
+#EXTINF:-1 tvg-id="commercial" group-title="11 ABEMA",CMチャンネル
 https://linear-abematv.akamaized.net/preview/channel/commercial/playlist.m3u8
-#EXTINF:-1 tvg-id="disney" group-title="13 ABEMA",DISNEY名作コレクション
+#EXTINF:-1 tvg-id="disney" group-title="11 ABEMA",DISNEY名作コレクション
 https://linear-abematv.akamaized.net/preview/channel/disney/playlist.m3u8
-#EXTINF:-1 tvg-id="hiphop" group-title="13 ABEMA",HIPHOPチャンネル
+#EXTINF:-1 tvg-id="hiphop" group-title="11 ABEMA",HIPHOPチャンネル
 https://linear-abematv.akamaized.net/preview/channel/hiphop/playlist.m3u8
-#EXTINF:-1 tvg-id="k-world" group-title="13 ABEMA",K WORLDチャンネル
+#EXTINF:-1 tvg-id="k-world" group-title="11 ABEMA",K WORLDチャンネル
 https://linear-abematv.akamaized.net/preview/channel/k-world/playlist.m3u8
-#EXTINF:-1 tvg-id="motor-sport" group-title="13 ABEMA",MOTOR SPORTチャンネル
+#EXTINF:-1 tvg-id="motor-sport" group-title="11 ABEMA",MOTOR SPORTチャンネル
 https://linear-abematv.akamaized.net/preview/channel/motor-sport/playlist.m3u8
-#EXTINF:-1 tvg-id="onepiece" group-title="13 ABEMA",ONE PIECEチャンネル
+#EXTINF:-1 tvg-id="onepiece" group-title="11 ABEMA",ONE PIECEチャンネル
 https://linear-abematv.akamaized.net/preview/channel/onepiece/playlist.m3u8
-#EXTINF:-1 tvg-id="world-sports" group-title="13 ABEMA",SPORTSチャンネル
+#EXTINF:-1 tvg-id="world-sports" group-title="11 ABEMA",SPORTSチャンネル
 https://linear-abematv.akamaized.net/preview/channel/world-sports/playlist.m3u8
-#EXTINF:-1 tvg-id="atashinchi" group-title="13 ABEMA",あたしンちチャンネル
+#EXTINF:-1 tvg-id="atashinchi" group-title="11 ABEMA",あたしンちチャンネル
 https://linear-abematv.akamaized.net/preview/channel/atashinchi/playlist.m3u8
-#EXTINF:-1 tvg-id="chiikawa" group-title="13 ABEMA",ちいかわチャンネル
+#EXTINF:-1 tvg-id="chiikawa" group-title="11 ABEMA",ちいかわチャンネル
 https://linear-abematv.akamaized.net/preview/channel/chiikawa/playlist.m3u8
-#EXTINF:-1 tvg-id="chibimaruko" group-title="13 ABEMA",ちびまる子ちゃんチャンネル
+#EXTINF:-1 tvg-id="chibimaruko" group-title="11 ABEMA",ちびまる子ちゃんチャンネル
 https://linear-abematv.akamaized.net/preview/channel/chibimaruko/playlist.m3u8
-#EXTINF:-1 tvg-id="00s-anime-1" group-title="13 ABEMA",なつかしアニメ00's
+#EXTINF:-1 tvg-id="00s-anime-1" group-title="11 ABEMA",なつかしアニメ00's
 https://linear-abematv.akamaized.net/preview/channel/00s-anime-1/playlist.m3u8
-#EXTINF:-1 tvg-id="80s-anime-1" group-title="13 ABEMA",なつかしアニメ80's
+#EXTINF:-1 tvg-id="80s-anime-1" group-title="11 ABEMA",なつかしアニメ80's
 https://linear-abematv.akamaized.net/preview/channel/80s-anime-1/playlist.m3u8
-#EXTINF:-1 tvg-id="90s-anime-1" group-title="13 ABEMA",なつかしアニメ90's
+#EXTINF:-1 tvg-id="90s-anime-1" group-title="11 ABEMA",なつかしアニメ90's
 https://linear-abematv.akamaized.net/preview/channel/90s-anime-1/playlist.m3u8
-#EXTINF:-1 tvg-id="eyeshield" group-title="13 ABEMA",アイシールド21チャンネル
+#EXTINF:-1 tvg-id="eyeshield" group-title="11 ABEMA",アイシールド21チャンネル
 https://linear-abematv.akamaized.net/preview/channel/eyeshield/playlist.m3u8
-#EXTINF:-1 tvg-id="pokemon-1" group-title="13 ABEMA",アニメ ポケットモンスターチャンネル1
+#EXTINF:-1 tvg-id="pokemon-1" group-title="11 ABEMA",アニメ ポケットモンスターチャンネル1
 https://linear-abematv.akamaized.net/preview/channel/pokemon-1/playlist.m3u8
-#EXTINF:-1 tvg-id="pokemon-2" group-title="13 ABEMA",アニメ ポケットモンスターチャンネル2
+#EXTINF:-1 tvg-id="pokemon-2" group-title="11 ABEMA",アニメ ポケットモンスターチャンネル2
 https://linear-abematv.akamaized.net/preview/channel/pokemon-2/playlist.m3u8
-#EXTINF:-1 tvg-id="anime-live" group-title="13 ABEMA",アニメLIVEチャンネル
+#EXTINF:-1 tvg-id="anime-live" group-title="11 ABEMA",アニメLIVEチャンネル
 https://linear-abematv.akamaized.net/preview/channel/anime-live/playlist.m3u8
-#EXTINF:-1 tvg-id="anime-live2" group-title="13 ABEMA",アニメLIVEチャンネル2
+#EXTINF:-1 tvg-id="anime-live2" group-title="11 ABEMA",アニメLIVEチャンネル2
 https://linear-abematv.akamaized.net/preview/channel/anime-live2/playlist.m3u8
-#EXTINF:-1 tvg-id="anime-live3" group-title="13 ABEMA",アニメLIVEチャンネル3
+#EXTINF:-1 tvg-id="anime-live3" group-title="11 ABEMA",アニメLIVEチャンネル3
 https://linear-abematv.akamaized.net/preview/channel/anime-live3/playlist.m3u8
-#EXTINF:-1 tvg-id="anime-special-2" group-title="13 ABEMA",アニメSPECIAL2チャンネル
+#EXTINF:-1 tvg-id="anime-special-2" group-title="11 ABEMA",アニメSPECIAL2チャンネル
 https://linear-abematv.akamaized.net/preview/channel/anime-special-2/playlist.m3u8
-#EXTINF:-1 tvg-id="anime-special-3" group-title="13 ABEMA",アニメSPECIAL3チャンネル
+#EXTINF:-1 tvg-id="anime-special-3" group-title="11 ABEMA",アニメSPECIAL3チャンネル
 https://linear-abematv.akamaized.net/preview/channel/anime-special-3/playlist.m3u8
-#EXTINF:-1 tvg-id="anime-special-4" group-title="13 ABEMA",アニメSPECIAL4
+#EXTINF:-1 tvg-id="anime-special-4" group-title="11 ABEMA",アニメSPECIAL4
 https://linear-abematv.akamaized.net/preview/channel/anime-special-4/playlist.m3u8
-#EXTINF:-1 tvg-id="special-plus-7" group-title="13 ABEMA",アニメSPECIALチャンネル
+#EXTINF:-1 tvg-id="special-plus-7" group-title="11 ABEMA",アニメSPECIALチャンネル
 https://linear-abematv.akamaized.net/preview/channel/special-plus-7/playlist.m3u8
-#EXTINF:-1 tvg-id="kitaro" group-title="13 ABEMA",ゲゲゲの鬼太郎チャンネル
+#EXTINF:-1 tvg-id="kitaro" group-title="11 ABEMA",ゲゲゲの鬼太郎チャンネル
 https://linear-abematv.akamaized.net/preview/channel/kitaro/playlist.m3u8
-#EXTINF:-1 tvg-id="drama" group-title="13 ABEMA",ドラマ映画チャンネル
+#EXTINF:-1 tvg-id="drama" group-title="11 ABEMA",ドラマ映画チャンネル
 https://linear-abematv.akamaized.net/preview/channel/drama/playlist.m3u8
-#EXTINF:-1 tvg-id="drama-2" group-title="13 ABEMA",ドラマ映画チャンネル2
+#EXTINF:-1 tvg-id="drama-2" group-title="11 ABEMA",ドラマ映画チャンネル2
 https://linear-abematv.akamaized.net/preview/channel/drama-2/playlist.m3u8
-#EXTINF:-1 tvg-id="family-anime-1" group-title="13 ABEMA",ファミリーアニメ
+#EXTINF:-1 tvg-id="family-anime-1" group-title="11 ABEMA",ファミリーアニメ
 https://linear-abematv.akamaized.net/preview/channel/family-anime-1/playlist.m3u8
-#EXTINF:-1 tvg-id="family-anime-2" group-title="13 ABEMA",ファミリーアニメ2チャンネル
+#EXTINF:-1 tvg-id="family-anime-2" group-title="11 ABEMA",ファミリーアニメ2チャンネル
 https://linear-abematv.akamaized.net/preview/channel/family-anime-2/playlist.m3u8
-#EXTINF:-1 tvg-id="family-anime-3" group-title="13 ABEMA",ファミリーアニメ3チャンネル
+#EXTINF:-1 tvg-id="family-anime-3" group-title="11 ABEMA",ファミリーアニメ3チャンネル
 https://linear-abematv.akamaized.net/preview/channel/family-anime-3/playlist.m3u8
-#EXTINF:-1 tvg-id="lovecomedy-anime" group-title="13 ABEMA",ラブコメアニメチャンネル
+#EXTINF:-1 tvg-id="lovecomedy-anime" group-title="11 ABEMA",ラブコメアニメチャンネル
 https://linear-abematv.akamaized.net/preview/channel/lovecomedy-anime/playlist.m3u8
-#EXTINF:-1 tvg-id="chinese-drama" group-title="13 ABEMA",中国ドラマチャンネル
+#EXTINF:-1 tvg-id="chinese-drama" group-title="11 ABEMA",中国ドラマチャンネル
 https://linear-abematv.akamaized.net/preview/channel/chinese-drama/playlist.m3u8
-#EXTINF:-1 tvg-id="conan" group-title="13 ABEMA",名探偵コナンチャンネル
+#EXTINF:-1 tvg-id="conan" group-title="11 ABEMA",名探偵コナンチャンネル
 https://linear-abematv.akamaized.net/preview/channel/conan/playlist.m3u8
-#EXTINF:-1 tvg-id="drama-4" group-title="13 ABEMA",国内ドラマチャンネル
+#EXTINF:-1 tvg-id="drama-4" group-title="11 ABEMA",国内ドラマチャンネル
 https://linear-abematv.akamaized.net/preview/channel/drama-4/playlist.m3u8
-#EXTINF:-1 tvg-id="sumo" group-title="13 ABEMA",大相撲チャンネル
+#EXTINF:-1 tvg-id="sumo" group-title="11 ABEMA",大相撲チャンネル
 https://linear-abematv.akamaized.net/preview/channel/sumo/playlist.m3u8
-#EXTINF:-1 tvg-id="shogi" group-title="13 ABEMA",将棋チャンネル
+#EXTINF:-1 tvg-id="shogi" group-title="11 ABEMA",将棋チャンネル
 https://linear-abematv.akamaized.net/preview/channel/shogi/playlist.m3u8
-#EXTINF:-1 tvg-id="dailylife-anime" group-title="13 ABEMA",日常・青春アニメチャンネル
+#EXTINF:-1 tvg-id="dailylife-anime" group-title="11 ABEMA",日常・青春アニメチャンネル
 https://linear-abematv.akamaized.net/preview/channel/dailylife-anime/playlist.m3u8
-#EXTINF:-1 tvg-id="fighting-sports" group-title="13 ABEMA",格闘チャンネル
+#EXTINF:-1 tvg-id="fighting-sports" group-title="11 ABEMA",格闘チャンネル
 https://linear-abematv.akamaized.net/preview/channel/fighting-sports/playlist.m3u8
-#EXTINF:-1 tvg-id="drama-3" group-title="13 ABEMA",海外ドラマ映画チャンネル1
+#EXTINF:-1 tvg-id="drama-3" group-title="11 ABEMA",海外ドラマ映画チャンネル1
 https://linear-abematv.akamaized.net/preview/channel/drama-3/playlist.m3u8
-#EXTINF:-1 tvg-id="late-night-anime" group-title="13 ABEMA",深夜アニメチャンネル
+#EXTINF:-1 tvg-id="late-night-anime" group-title="11 ABEMA",深夜アニメチャンネル
 https://linear-abematv.akamaized.net/preview/channel/late-night-anime/playlist.m3u8
-#EXTINF:-1 tvg-id="isekai-anime-2" group-title="13 ABEMA",異世界・ファンタジーアニメ2チャンネル
+#EXTINF:-1 tvg-id="isekai-anime-2" group-title="11 ABEMA",異世界・ファンタジーアニメ2チャンネル
 https://linear-abematv.akamaized.net/preview/channel/isekai-anime-2/playlist.m3u8
-#EXTINF:-1 tvg-id="isekai-anime-3" group-title="13 ABEMA",異世界・ファンタジーアニメ3チャンネル
+#EXTINF:-1 tvg-id="isekai-anime-3" group-title="11 ABEMA",異世界・ファンタジーアニメ3チャンネル
 https://linear-abematv.akamaized.net/preview/channel/isekai-anime-3/playlist.m3u8
-#EXTINF:-1 tvg-id="isekai-anime-4" group-title="13 ABEMA",異世界・ファンタジーアニメ4チャンネル
+#EXTINF:-1 tvg-id="isekai-anime-4" group-title="11 ABEMA",異世界・ファンタジーアニメ4チャンネル
 https://linear-abematv.akamaized.net/preview/channel/isekai-anime-4/playlist.m3u8
-#EXTINF:-1 tvg-id="isekai-anime-5" group-title="13 ABEMA",異世界・ファンタジーアニメ5チャンネル
+#EXTINF:-1 tvg-id="isekai-anime-5" group-title="11 ABEMA",異世界・ファンタジーアニメ5チャンネル
 https://linear-abematv.akamaized.net/preview/channel/isekai-anime-5/playlist.m3u8
-#EXTINF:-1 tvg-id="isekai-anime" group-title="13 ABEMA",異世界・ファンタジーアニメチャンネル
+#EXTINF:-1 tvg-id="isekai-anime" group-title="11 ABEMA",異世界・ファンタジーアニメチャンネル
 https://linear-abematv.akamaized.net/preview/channel/isekai-anime/playlist.m3u8
-#EXTINF:-1 tvg-id="keirin-auto" group-title="13 ABEMA",競輪・オートレースチャンネル
+#EXTINF:-1 tvg-id="keirin-auto" group-title="11 ABEMA",競輪・オートレースチャンネル
 https://linear-abematv.akamaized.net/preview/channel/keirin-auto/playlist.m3u8
-#EXTINF:-1 tvg-id="asia-drama-3" group-title="13 ABEMA",韓国 復讐愛憎劇
+#EXTINF:-1 tvg-id="asia-drama-3" group-title="11 ABEMA",韓国 復讐愛憎劇
 https://linear-abematv.akamaized.net/preview/channel/asia-drama-3/playlist.m3u8
-#EXTINF:-1 tvg-id="asia-drama" group-title="13 ABEMA",韓国ドラマチャンネル
+#EXTINF:-1 tvg-id="asia-drama" group-title="11 ABEMA",韓国ドラマチャンネル
 https://linear-abematv.akamaized.net/preview/channel/asia-drama/playlist.m3u8
-#EXTINF:-1 tvg-id="asia-drama-2" group-title="13 ABEMA",韓国ドラマチャンネル2
+#EXTINF:-1 tvg-id="asia-drama-2" group-title="11 ABEMA",韓国ドラマチャンネル2
 https://linear-abematv.akamaized.net/preview/channel/asia-drama-2/playlist.m3u8
-#EXTINF:-1 tvg-id="asia-love-comedy" group-title="13 ABEMA",韓国ラブコメディ
+#EXTINF:-1 tvg-id="asia-love-comedy" group-title="11 ABEMA",韓国ラブコメディ
 https://linear-abematv.akamaized.net/preview/channel/asia-love-comedy/playlist.m3u8
-#EXTINF:-1 tvg-id="mahjong" group-title="13 ABEMA",麻雀チャンネル
+#EXTINF:-1 tvg-id="mahjong" group-title="11 ABEMA",麻雀チャンネル
 https://linear-abematv.akamaized.net/preview/channel/mahjong/playlist.m3u8
-#EXTINF:-1 tvg-id="UFCFAST.us@Xumo" tvg-chno="SP901" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/UFC_logo.svg/532px-UFC_logo.svg.png" group-title="14 スポーツ配信",UFC FAST（1080p・Kodi実機確認済）
+#EXTINF:-1 tvg-id="UFCFAST.us@Xumo" tvg-chno="SP901" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/UFC_logo.svg/532px-UFC_logo.svg.png" group-title="12 スポーツ配信",UFC FAST（1080p・Kodi実機確認済）
 https://linear-893.frequency.stream/dist/xumo/893/hls/master/playlist.m3u8
-#EXTINF:-1 tvg-id="F1Channel.ie@US" tvg-chno="SP902" group-title="14 スポーツ配信",F1 Channel FAST（Kodi実機確認済）
+#EXTINF:-1 tvg-id="F1Channel.ie@US" tvg-chno="SP902" group-title="12 スポーツ配信",F1 Channel FAST（Kodi実機確認済）
 https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/65c69ee3d77d450008c80438/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c28f172-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=922e06a8-1ba6-4236-9931-06d471735996|User-Agent=Mozilla%2F5.0
-#EXTINF:-1 tvg-id="GakiNoTsukai.jp" tvg-chno="VA901" group-title="15 バラエティ配信",Gaki no Tsukai（英語字幕・Kodi実機確認済）
+#EXTINF:-1 tvg-id="GakiNoTsukai.jp" tvg-chno="VA901" group-title="13 バラエティ配信",Gaki no Tsukai（英語字幕・Kodi実機確認済）
 https://hamada.gaki-no-tsukai.stream/hls/test.m3u8
-#EXTINF:-1 tvg-id="BeautifulLifeTV.tw@SD" tvg-chno="TW901" group-title="17 台湾・公開配信",Beautiful Life TV
+#EXTINF:-1 tvg-id="BeautifulLifeTV.tw@SD" tvg-chno="TW901" group-title="14 台湾・公開配信",Beautiful Life TV
 https://5ddce30eb4b55.streamlock.net/bltvhd/bltv1/playlist.m3u8
-#EXTINF:-1 tvg-id="CGNTVChinese.tw@SD" tvg-chno="TW902" group-title="17 台湾・公開配信",CGNTV Chinese
+#EXTINF:-1 tvg-id="CGNTVChinese.tw@SD" tvg-chno="TW902" group-title="14 台湾・公開配信",CGNTV Chinese
 https://d3e05csss9c272.cloudfront.net/out/v1/f0bf71c57581470fb9379f603e8f5d83/CGNWebLiveCN.m3u8
-#EXTINF:-1 tvg-id="DaliTV.tw@SD" tvg-chno="TW903" group-title="17 台湾・公開配信",Dali TV
+#EXTINF:-1 tvg-id="DaliTV.tw@SD" tvg-chno="TW903" group-title="14 台湾・公開配信",Dali TV
 http://www.dalitv.com.tw:4568/live/dali/index.m3u8
-#EXTINF:-1 tvg-id="TaiwanIndigenousTV.tw@SD" tvg-chno="TW906" group-title="17 台湾・公開配信",Taiwan Indigenous TV
+#EXTINF:-1 tvg-id="TaiwanIndigenousTV.tw@SD" tvg-chno="TW906" group-title="14 台湾・公開配信",Taiwan Indigenous TV
 https://streamipcfapp.akamaized.net/live/_definst_/live_720/key_b1500.m3u8
-#EXTINF:-1 tvg-id="NTDTVAsiaPacific.us@SD" tvg-chno="TW907" group-title="17 台湾・公開配信",NTD TV Asia-Pacific
+#EXTINF:-1 tvg-id="NTDTVAsiaPacific.us@SD" tvg-chno="TW907" group-title="14 台湾・公開配信",NTD TV Asia-Pacific
 https://live.ntdtv.com/aplive200/playlist.m3u8
-#EXTINF:-1 tvg-id="SupremeMasterTV.tw@SD" tvg-chno="TW908" group-title="17 台湾・公開配信",Supreme Master TV
+#EXTINF:-1 tvg-id="SupremeMasterTV.tw@SD" tvg-chno="TW908" group-title="14 台湾・公開配信",Supreme Master TV
 https://lbs-us1.suprememastertv.com/720p.m3u8
-#EXTINF:-1 tvg-id="TaiwanPlusTV.tw@SD" tvg-chno="TW909" group-title="17 台湾・公開配信",TaiwanPlus TV
+#EXTINF:-1 tvg-id="TaiwanPlusTV.tw@SD" tvg-chno="TW909" group-title="14 台湾・公開配信",TaiwanPlus TV
 https://fastly.live.brightcove.com/6385235869112/ap-northeast-1/6282251407001/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0IjoiaWU4OWZvLmVncmVzcy5pdjNqZDgiLCJhY2NvdW50X2lkIjoiNjI4MjI1MTQwNzAwMSIsImVobiI6ImZhc3RseS5saXZlLmJyaWdodGNvdmUuY29tIiwiaXNzIjoiYmxpdmUtcGxheWJhY2stc291cmNlLWFwaSIsInN1YiI6InBhdGhtYXB0b2tlbiIsImF1ZCI6WyI2MjgyMjUxNDA3MDAxIl0sImp0aSI6IjYzODUyMzU4NjkxMTIifQ.4c-V1Ks3nBx9nRljtn5-jCNP_nLuWBbk-pw9BFWZfMQ/playlist-hls.m3u8
-#EXTINF:-1 tvg-id="WXTV.tw@SD" tvg-chno="TW910" group-title="17 台湾・公開配信",WXTV
+#EXTINF:-1 tvg-id="WXTV.tw@SD" tvg-chno="TW910" group-title="14 台湾・公開配信",WXTV
 https://mobile.ccdntech.com/transcoder/_definst_/vod164_Live/live/chunklist_w1177047531.m3u8
-#EXTINF:-1 tvg-id="JimJam.uk" group-title="18 海外",JimJam
+#EXTINF:-1 tvg-id="JimJam.uk" group-title="15 海外",JimJam
 http://zabava-htlive.cdn.ngenix.net/hls/CH_JIMJAM/variant.m3u8

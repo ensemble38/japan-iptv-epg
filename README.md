@@ -6,7 +6,14 @@ Two outputs are published: `japan_iptv_epg.xml.gz` preserves the complete
 playlist guide, while `japan_iptv_kodi_epg.xml.gz` is generated from
 `kodi_channels.csv` and excludes every adult-group channel for living-room TV use.
 The matching TV-safe playlist is published as `japan_iptv_kodi_tv_safe.m3u`;
-the original complete playlist remains unchanged at its existing location.
+the complete playlist remains available at its existing Google Drive location.
+
+Playlist groups are stored in numeric display order. The TV-safe playlist uses
+the contiguous `01` through `15` groups; the complete playlist additionally
+keeps adult channels isolated at the end as `99 成人・年齢制限`. The
+`03 CS・専門` group contains the directly published Shop Channel, QVC and GSTV
+feeds plus clearly labelled free specialist/FAST variants. It does not present
+those variants as the subscription satellite services themselves.
 
 The builder merges Japanese sources with the current Xumo US, LG Channels US,
 and Taiwan Traditional Chinese guides. Playlist IDs are normalized through

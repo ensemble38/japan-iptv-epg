@@ -30,6 +30,8 @@ SOURCE_ALIASES = {
     "BSTBS.jp": "BSTBS.jp",
     "BSTVTokyo.jp": "BSTVTokyo.jp",
     "BSFuji.jp": "BSFuji.jp",
+    "rch_47": "rch_47",
+    "rch_115": "rch_115",
     "fastch_v2_asdrm": "FastTV_asdrm",
     "fastch_v2_bgolf": "FastTV_bgolf",
     "fastch_v2_busns": "FastTV_busns",
