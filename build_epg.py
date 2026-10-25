@@ -30,6 +30,10 @@ SOURCES = [
     ("epgshare-jp2", "https://epgshare01.online/epgshare01/epg_ripper_JP2.xml.gz"),
     ("epgshare-kr1", "https://epgshare01.online/epgshare01/epg_ripper_KR1.xml.gz"),
     (
+        "bs10-premium",
+        "https://raw.githubusercontent.com/Thibi-kuro-Sanboooo/Japan-IPTV-EPG/main/bs10premium.xml",
+    ),
+    (
         "xumo-us",
         "https://raw.githubusercontent.com/BuddyChewChew/xumo-playlist-generator/refs/heads/main/playlists/xumo_epg.xml.gz",
     ),
@@ -431,12 +435,22 @@ def main() -> None:
         root = download_xml(name, url)
         source_channels = root.findall("channel")
         source_programmes = root.findall("programme")
+        if name == "bs10-premium":
+            for channel in source_channels:
+                channel.set("id", "StarBS10.jp")
+                display_names = channel.findall("display-name")
+                if display_names:
+                    display_names[0].text = "BS10プレミアム"
+                else:
+                    ET.SubElement(channel, "display-name", {"lang": "ja"}).text = "BS10プレミアム"
+            for programme in source_programmes:
+                programme.set("channel", "StarBS10.jp")
         source_stats.append(
             {"name": name, "url": url, "channels": len(source_channels), "programmes": len(source_programmes)}
         )
         for channel in source_channels:
             channel_id = channel.get("id", "")
-            if channel_id and channel_id not in channels:
+            if channel_id and (channel_id not in channels or name == "bs10-premium"):
                 channels[channel_id] = channel
         for programme in source_programmes:
             channel_id = programme.get("channel", "")
