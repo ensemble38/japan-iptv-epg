@@ -1,5 +1,5 @@
 #EXTM3U url-tvg="https://ensemble38.github.io/japan-iptv-epg/japan_iptv_kodi_epg.xml.gz" x-tvg-url="https://ensemble38.github.io/japan-iptv-epg/japan_iptv_kodi_epg.xml.gz" tvg-url="https://ensemble38.github.io/japan-iptv-epg/japan_iptv_kodi_epg.xml.gz"
-#BUILD:2026-10-25 channels=120 adult-group=0 taiwan-public=8
+#BUILD:2026-10-25 channels=166 adult-group=0 taiwan-public=8
 #NOTE:The 11 Taiwan routes removed on 2026-09-30 were restored because the revalidation incorrectly treated direct MPEG-TS responses as HLS manifests. Kodi remains untouched.
 #NOTE:2026-10-08 naori-test 49 dead routes replaced with Haruka 118.69.27.222 mappings; all 49 ffprobe plus 6s A/V decode passed; terrestrial 46/46 rechecked.
 #NOTE:2026-10-20 added 10 Taiwan public channels; master/child/current media segment revalidated. Dali uses the newest rolling segment because old entries expire.
@@ -11,6 +11,8 @@
 #NOTE:2026-10-25 TV-safe Kodi edition excludes the adult group.
 #NOTE:2026-10-25 restored 8 Tokyo terrestrial and 7 BS simulcasts from a new relay; each passed 12-second A/V decode and visual station identification. BS11/BS12 error-slate feeds were rejected.
 #NOTE:2026-10-25 added verified official public NTV NEWS and MBS NEWS feeds; created 03 CS-specialist group and sorted all category prefixes numerically.
+#NOTE:2026-10-25 added 44 BS/CS subscription channels after sequential A/V decode; no free/paid filter was applied.
+#NOTE:2026-10-25 added distinct live R-channel feeds for pets, igo/shogi and adult entertainment; the adult feed remains full-playlist-only.
 #EXTINF:-1 tvg-id="JOAKDTV.jp" tvg-name="NHK東京・総合" tvg-chno="011" tvg-logo="https://tvguide.myjcom.jp/monomedia/ch_logo/otd/logo-7fe0-011-400x400.png" group-title="01 地上波",NHK総合（東京）
 https://ri.shinori.my.id/pxx.php?shk_cid=hdgd01
 #EXTINF:-1 tvg-id="JOABDTV.jp" tvg-name="NHK東京・教育" tvg-chno="021" tvg-logo="https://i.imgur.com/WxtftlO.png" group-title="01 地上波",NHK Eテレ（東京）
@@ -41,6 +43,36 @@ https://ri.shinori.my.id/pxx.php?shk_cid=bs04
 https://ri.shinori.my.id/pxx.php?shk_cid=bs05
 #EXTINF:-1 tvg-id="BSFuji.jp" tvg-name="BSフジ" tvg-chno="BS181" group-title="02 BS",BSフジ
 https://ri.shinori.my.id/pxx.php?shk_cid=bs06
+#EXTINF:-1 tvg-id="WOWOWCinema.jp" tvg-name="WOWOWシネマ" group-title="02 BS",WOWOWシネマ
+https://ri.shinori.my.id/pxx.php?shk_cid=bs07
+#EXTINF:-1 tvg-id="StarBS10.jp" tvg-name="BS10プレミアム" group-title="02 BS",BS10プレミアム
+https://ri.shinori.my.id/pxx.php?shk_cid=bs08
+#EXTINF:-1 tvg-id="WOWOWPrime.jp" tvg-name="WOWOWプライム" group-title="02 BS",WOWOWプライム
+https://ri.shinori.my.id/pxx.php?shk_cid=bs12
+#EXTINF:-1 tvg-id="GreenChannel.jp" tvg-name="グリーンチャンネル" group-title="02 BS",グリーンチャンネル
+https://ri.shinori.my.id/pxx.php?shk_cid=bs14
+#EXTINF:-1 tvg-id="Animax.in" tvg-name="アニマックス" group-title="02 BS",アニマックス
+https://ri.shinori.my.id/pxx.php?shk_cid=bs15
+#EXTINF:-1 tvg-id="JSPORTS1.jp" tvg-name="J SPORTS 1" group-title="02 BS",J SPORTS 1
+https://ri.shinori.my.id/pxx.php?shk_cid=bs18
+#EXTINF:-1 tvg-id="JSPORTS2.jp" tvg-name="J SPORTS 2" group-title="02 BS",J SPORTS 2
+https://ri.shinori.my.id/pxx.php?shk_cid=bs19
+#EXTINF:-1 tvg-id="WOWOWLive.jp" tvg-name="WOWOWライブ" group-title="02 BS",WOWOWライブ
+https://ri.shinori.my.id/pxx.php?shk_cid=bs20
+#EXTINF:-1 tvg-id="JSPORTS3.jp" tvg-name="J SPORTS 3" group-title="02 BS",J SPORTS 3
+https://ri.shinori.my.id/pxx.php?shk_cid=bs21
+#EXTINF:-1 tvg-id="JSPORTS4.jp" tvg-name="J SPORTS 4" group-title="02 BS",J SPORTS 4
+https://ri.shinori.my.id/pxx.php?shk_cid=bs22
+#EXTINF:-1 tvg-id="NihonEigaSenmonChannel.jp" tvg-name="日本映画専門チャンネル" group-title="02 BS",日本映画専門チャンネル
+https://ri.shinori.my.id/pxx.php?shk_cid=bs23
+#EXTINF:-1 tvg-id="DisneyChannel.jp" tvg-name="ディズニー・チャンネル" group-title="02 BS",ディズニー・チャンネル
+https://ri.shinori.my.id/pxx.php?shk_cid=bs24
+#EXTINF:-1 tvg-id="FishingVision.jp" tvg-name="釣りビジョン" group-title="02 BS",釣りビジョン
+https://ri.shinori.my.id/pxx.php?shk_cid=bs25
+#EXTINF:-1 tvg-id="SpaceShowerTV.jp" tvg-name="スペースシャワーTV" group-title="02 BS",スペースシャワーTV
+https://ri.shinori.my.id/pxx.php?shk_cid=bs26
+#EXTINF:-1 tvg-id="BSShochikuTokyu.jp" tvg-name="J:COM BS" group-title="02 BS",J:COM BS
+https://ri.shinori.my.id/pxx.php?shk_cid=bs31
 #EXTINF:-1 tvg-id="fastch_v2_samri" tvg-name="《09.30終》時代劇TV（Powered by 時代劇専門チャンネル）" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/samri/channel_logo" group-title="03 CS・専門",時代劇TV (FAST)
 https://livetv.fastv.jp/channel_assembly/696074B664B80F46A876/master.m3u8
 #EXTINF:-1 tvg-id="fastch_v2_kids" tvg-name="《09.30終》アニマックスFREE" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/kids/channel_logo" group-title="03 CS・専門",アニマックス FREE (FAST)
@@ -53,6 +85,66 @@ https://stream3.shopch.jp/HLS/master.m3u8
 https://japaneast.av.mk.io/mediakindcdn-mediakind/ca01a143-f823-4432-b670-c22ff9643ce4/index.qfm/manifest(format=m3u8-cmaf)
 #EXTINF:-1 tvg-id="QVC.jp@SD" tvg-name="4Ｋ QVC" tvg-logo="https://i.imgur.com/6TWUVrh.png" group-title="03 CS・専門",QVC (Japan) (1080p)
 https://d1flvb4iqlercm.cloudfront.net/live/live_1080p_2nd.m3u8
+#EXTINF:-1 tvg-id="SkyA.jp" tvg-name="スカイA" group-title="03 CS・専門",スカイA
+https://ri.shinori.my.id/pxx.php?shk_cid=cs01
+#EXTINF:-1 tvg-id="NitteleGPlus.jp" tvg-name="日テレジータス" group-title="03 CS・専門",日テレジータス
+https://ri.shinori.my.id/pxx.php?shk_cid=cs02
+#EXTINF:-1 tvg-id="GolfNetwork.jp" tvg-name="ゴルフネットワーク" group-title="03 CS・専門",ゴルフネットワーク
+https://ri.shinori.my.id/pxx.php?shk_cid=cs03
+#EXTINF:-1 tvg-id="JidaigekiSenmonChannel.jp" tvg-name="時代劇専門チャンネル" group-title="03 CS・専門",時代劇専門チャンネル
+https://ri.shinori.my.id/pxx.php?shk_cid=cs04
+#EXTINF:-1 tvg-id="HomeDramaChannel.jp" tvg-name="ホームドラマチャンネル" group-title="03 CS・専門",ホームドラマチャンネル
+https://ri.shinori.my.id/pxx.php?shk_cid=cs05
+#EXTINF:-1 tvg-id="MusicJapanTV.jp" tvg-name="ミュージック・ジャパンTV" group-title="03 CS・専門",ミュージック・ジャパンTV
+https://ri.shinori.my.id/pxx.php?shk_cid=cs06
+#EXTINF:-1 tvg-id="KidsStation.jp" tvg-name="キッズステーション" group-title="03 CS・専門",キッズステーション
+https://ri.shinori.my.id/pxx.php?shk_cid=cs07
+#EXTINF:-1 tvg-id="DiscoveryChannelSoutheastAsia.sg@Japan" tvg-name="ディスカバリーチャンネル" group-title="03 CS・専門",ディスカバリーチャンネル
+https://ri.shinori.my.id/pxx.php?shk_cid=cs08
+#EXTINF:-1 tvg-id="History.jp" tvg-name="ヒストリーチャンネル" group-title="03 CS・専門",ヒストリーチャンネル
+https://ri.shinori.my.id/pxx.php?shk_cid=cs09
+#EXTINF:-1 tvg-id="NationalGeographic.jp" tvg-name="ナショナル ジオグラフィック" group-title="03 CS・専門",ナショナル ジオグラフィック
+https://ri.shinori.my.id/pxx.php?shk_cid=cs10
+#EXTINF:-1 tvg-id="TBSNewsCS.jp" tvg-name="TBS NEWS" group-title="03 CS・専門",TBS NEWS
+https://ri.shinori.my.id/pxx.php?shk_cid=cs11
+#EXTINF:-1 tvg-id="TABIChannel.jp" tvg-name="旅チャンネル" group-title="03 CS・専門",旅チャンネル
+https://ri.shinori.my.id/pxx.php?shk_cid=cs12
+#EXTINF:-1 tvg-id="KayoPops.jp" tvg-name="歌謡ポップスチャンネル" group-title="03 CS・専門",歌謡ポップスチャンネル
+https://ri.shinori.my.id/pxx.php?shk_cid=cs13
+#EXTINF:-1 tvg-id="MoviePlus.jp" tvg-name="ムービープラス" group-title="03 CS・専門",ムービープラス
+https://ri.shinori.my.id/pxx.php?shk_cid=cs14
+#EXTINF:-1 tvg-id="BBCNews.uk@AsiaPacific" tvg-name="BBCニュース" group-title="03 CS・専門",BBCニュース
+https://ri.shinori.my.id/pxx.php?shk_cid=cs15
+#EXTINF:-1 tvg-id="CNNj.jp" tvg-name="CNNj" group-title="03 CS・専門",CNNj
+https://ri.shinori.my.id/pxx.php?shk_cid=cs16
+#EXTINF:-1 tvg-id="GAORASPORTS.jp" tvg-name="GAORA SPORTS" group-title="03 CS・専門",GAORA SPORTS
+https://ri.shinori.my.id/pxx.php?shk_cid=cs17
+#EXTINF:-1 tvg-id="MTV.jp" tvg-name="MTV" group-title="03 CS・専門",MTV
+https://ri.shinori.my.id/pxx.php?shk_cid=cs18
+#EXTINF:-1 tvg-id="LaLaTV.jp" tvg-name="女性チャンネル♪LaLa TV" group-title="03 CS・専門",女性チャンネル♪LaLa TV
+https://ri.shinori.my.id/pxx.php?shk_cid=cs19
+#EXTINF:-1 tvg-id="FamilyGekijyo.jp" tvg-name="ファミリー劇場" group-title="03 CS・専門",ファミリー劇場
+https://ri.shinori.my.id/pxx.php?shk_cid=cs20
+#EXTINF:-1 tvg-id="MONDOTV.jp" tvg-name="MONDO TV" group-title="03 CS・専門",MONDO TV
+https://ri.shinori.my.id/pxx.php?shk_cid=cs21
+#EXTINF:-1 tvg-id="EiseiGekijo.jp" tvg-name="衛星劇場" group-title="03 CS・専門",衛星劇場
+https://ri.shinori.my.id/pxx.php?shk_cid=cs22
+#EXTINF:-1 tvg-id="DisneyJunior.jp" tvg-name="ディズニージュニア" group-title="03 CS・専門",ディズニージュニア
+https://ri.shinori.my.id/pxx.php?shk_cid=cs23
+#EXTINF:-1 tvg-id="AnimalPlanet.jp" tvg-name="アニマルプラネット" group-title="03 CS・専門",アニマルプラネット
+https://ri.shinori.my.id/pxx.php?shk_cid=cs24
+#EXTINF:-1 tvg-id="CartoonNetwork.jp" tvg-name="カートゥーン ネットワーク" group-title="03 CS・専門",カートゥーン ネットワーク
+https://ri.shinori.my.id/pxx.php?shk_cid=cs25
+#EXTINF:-1 tvg-id="FujiTVNEXT.jp" tvg-name="フジテレビNEXT" group-title="03 CS・専門",フジテレビNEXT
+https://ri.shinori.my.id/pxx.php?shk_cid=cs26
+#EXTINF:-1 tvg-id="ToeiChannel.jp" tvg-name="東映チャンネル" group-title="03 CS・専門",東映チャンネル
+https://ri.shinori.my.id/pxx.php?shk_cid=cs27
+#EXTINF:-1 tvg-id="TAKARAZUKASKYSTAGE.jp" tvg-name="TAKARAZUKA SKY STAGE" group-title="03 CS・専門",TAKARAZUKA SKY STAGE
+https://ri.shinori.my.id/pxx.php?shk_cid=cs28
+#EXTINF:-1 tvg-id="ChannelGinga.jp" tvg-name="チャンネル銀河" group-title="03 CS・専門",チャンネル銀河
+https://ri.shinori.my.id/pxx.php?shk_cid=cs29
+#EXTINF:-1 tvg-id="rch_100" tvg-name="囲碁・将棋ライト (Rチャンネル)" group-title="03 CS・専門",囲碁・将棋ライト (Rチャンネル)
+https://ri.shinori.my.id/pxx.php?shk_cid=rch_100
 #EXTINF:-1 tvg-id="rch_45" tvg-name="ウェザーニュースLiVE" tvg-chno="CH 106" tvg-logo="https://channel.rakuten.co.jp/service/img/logo/chlogo-with-number/106_whethernews.png" group-title="04 ニュース・天気",ウェザーニュースLiVE
 https://rch01e-alive-hls.akamaized.net/38fb45b25cdb05a1/out/v1/4e907bfabc684a1dae10df8431a84d21/index.m3u8
 #EXTINF:-1 tvg-id="rch_108" tvg-name="FNNプライムオンライン" tvg-chno="rch_108" tvg-logo="https://channel.rakuten.co.jp/service/img/logo/chlogo-with-number/105_fnn.png" group-title="04 ニュース・天気",FNNプライムオンライン
@@ -89,6 +181,8 @@ https://livetv.fastv.jp/channel_assembly/69551F080000E209AD09/master.m3u8
 https://livetv.fastv.jp/channel_assembly/696095BC725E0FE5F3E9/master.m3u8
 #EXTINF:-1 tvg-id="fastch_v2_recip" tvg-name="《09.30終》観るたび PRODUCED by るるぶ" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/recip/channel_logo" group-title="07 趣味・ライフ",観るたび (FAST)
 https://livetv.fastv.jp/channel_assembly/6960965C64B80F2C027D/master.m3u8
+#EXTINF:-1 tvg-id="rch_86" tvg-name="ワンニャンチャンネル" group-title="07 趣味・ライフ",ワンニャンチャンネル
+https://ri.shinori.my.id/pxx.php?shk_cid=rch_86
 #EXTINF:-1 tvg-id="fastch_v2_snyon" tvg-name="《09.30終》FASHION+" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/snyon/channel_logo" group-title="08 地域・文化",FASHIONPLUS (FAST)
 https://livetv.fastv.jp/channel_assembly/69609952725E0FA3B987/master.m3u8
 #EXTINF:-1 tvg-id="fastch_v2_jpthp" tvg-name="《09.30終》ぴあ落語ざんまい" tvg-logo="https://prod-dxtool-fast-tencent.s3.ap-northeast-1.amazonaws.com/public/v2/channels/jpthp/channel_logo" group-title="08 地域・文化",ぴあ落語ざんまい (FAST)

@@ -50,6 +50,57 @@ SOURCE_ALIASES = {
     "fastch_v2_snyon": "FastTV_snyon",
     "fastch_v2_tokai": "FastTV_tokai",
     "fastch_v2_travl": "FastTV_travl",
+    "rch_98": "rch_125",
+    "BSShochikuTokyu.jp": "J:COM.BS.jp",
+}
+
+DIRECT_SOURCE_IDS = {
+    "WOWOWCinema.jp",
+    "StarBS10.jp",
+    "WOWOWPrime.jp",
+    "GreenChannel.jp",
+    "Animax.in",
+    "JSPORTS1.jp",
+    "JSPORTS2.jp",
+    "WOWOWLive.jp",
+    "JSPORTS3.jp",
+    "JSPORTS4.jp",
+    "NihonEigaSenmonChannel.jp",
+    "DisneyChannel.jp",
+    "FishingVision.jp",
+    "SpaceShowerTV.jp",
+    "BSShochikuTokyu.jp",
+    "SkyA.jp",
+    "NitteleGPlus.jp",
+    "GolfNetwork.jp",
+    "JidaigekiSenmonChannel.jp",
+    "HomeDramaChannel.jp",
+    "MusicJapanTV.jp",
+    "KidsStation.jp",
+    "DiscoveryChannelSoutheastAsia.sg@Japan",
+    "History.jp",
+    "NationalGeographic.jp",
+    "TBSNewsCS.jp",
+    "TABIChannel.jp",
+    "KayoPops.jp",
+    "MoviePlus.jp",
+    "BBCNews.uk@AsiaPacific",
+    "CNNj.jp",
+    "GAORASPORTS.jp",
+    "MTV.jp",
+    "LaLaTV.jp",
+    "FamilyGekijyo.jp",
+    "MONDOTV.jp",
+    "EiseiGekijo.jp",
+    "DisneyJunior.jp",
+    "AnimalPlanet.jp",
+    "CartoonNetwork.jp",
+    "FujiTVNEXT.jp",
+    "ToeiChannel.jp",
+    "TAKARAZUKASKYSTAGE.jp",
+    "ChannelGinga.jp",
+    "rch_86",
+    "rch_100",
 }
 
 BLANK_ID_BY_CHANNEL_NUMBER = {
@@ -152,7 +203,11 @@ def main() -> None:
     for playlist_id, display_name in playlist_channels:
         if playlist_id in seen:
             continue
-        source_id = playlist_id if playlist_id in known_sources else SOURCE_ALIASES.get(playlist_id, "")
+        source_id = (
+            playlist_id
+            if playlist_id in known_sources or playlist_id in DIRECT_SOURCE_IDS
+            else SOURCE_ALIASES.get(playlist_id, "")
+        )
         rows.append(
             {
                 "tvg_id": playlist_id,
