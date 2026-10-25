@@ -54,7 +54,6 @@ SOURCES = [
 ]
 
 REFERENCE_IDS = [
-    "Pigoo.jp",
     "VParadise.jp",
     "PlayboyChannel.jp",
     "MidnightBlue.jp",

@@ -113,7 +113,7 @@ def main() -> None:
     seen: set[str] = set()
     for row in existing:
         playlist_id = row.get("tvg_id", "").strip()
-        if not playlist_id or playlist_id in seen:
+        if not playlist_id or playlist_id not in names or playlist_id in seen:
             continue
         source_id = SOURCE_ALIASES.get(playlist_id, row.get("source_id", "").strip())
         display_name = names.get(playlist_id, row.get("display_name", "").strip())
