@@ -13,6 +13,8 @@
 #NOTE:2026-10-25 added verified official public NTV NEWS and MBS NEWS feeds; created 03 CS-specialist group and sorted all category prefixes numerically.
 #NOTE:2026-10-25 added 44 BS/CS subscription channels after sequential A/V decode; no free/paid filter was applied.
 #NOTE:2026-10-25 added distinct live R-channel feeds for pets, igo/shogi and adult entertainment; the adult feed remains full-playlist-only.
+#NOTE:2026-10-25 re-dug adult sources without content-category filtering: added 15 live routes and 8 verified backup routes after 12-second A/V decode and visual channel checks; Kodi stays adult-free.
+#NOTE:2026-10-25 Kodi playlist and EPG refreshed after the adult-source revalidation; all adult routes remain excluded from the TV-safe outputs.
 #EXTINF:-1 tvg-id="JOAKDTV.jp" tvg-name="NHK東京・総合" tvg-chno="011" tvg-logo="https://tvguide.myjcom.jp/monomedia/ch_logo/otd/logo-7fe0-011-400x400.png" group-title="01 地上波",NHK総合（東京）
 https://ri.shinori.my.id/pxx.php?shk_cid=hdgd01
 #EXTINF:-1 tvg-id="JOABDTV.jp" tvg-name="NHK東京・教育" tvg-chno="021" tvg-logo="https://i.imgur.com/WxtftlO.png" group-title="01 地上波",NHK Eテレ（東京）

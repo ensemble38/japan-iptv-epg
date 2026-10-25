@@ -374,6 +374,11 @@ def organize(path: Path) -> None:
             "and 8 verified backup routes after 12-second A/V decode and visual channel checks; Kodi stays adult-free."
         ),
     ]
+    if tv_safe:
+        notes.append(
+            "#NOTE:2026-10-25 Kodi playlist and EPG refreshed after the adult-source revalidation; "
+            "all adult routes remain excluded from the TV-safe outputs."
+        )
     for note in notes:
         if note not in header:
             header.append(note)
