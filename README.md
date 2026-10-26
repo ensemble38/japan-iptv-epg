@@ -22,6 +22,12 @@ and Taiwan Traditional Chinese guides. Playlist IDs are normalized through
 `channels.csv`; this includes UFC FAST, F1 Channel, the live Taiwan adult
 feeds, and ten verified public Taiwan channels.
 
+Taiwan ports 117 and 1009 are intentionally separate. Concurrent live-frame
+verification on 2026-10-26 identified port 117 as Banana HD and port 1009 as
+Model Media (`麻豆傳媒映畫`). Only port 117 uses the Banana schedule. No verified
+schedule source is currently available for Model Media, so it receives explicit
+name-only fallback blocks instead of an incorrect Banana schedule.
+
 The complete guide also maps current schedules for Brazzers TV Europe, Extasy
 TV, EroXXX HD, Dorcel TV, Leo TV, Reality Kings TV, and Private TV. Other adult
 stations receive name-only fallback blocks when their source guide is empty or
