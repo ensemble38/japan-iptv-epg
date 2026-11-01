@@ -63,6 +63,29 @@ NEW_CHANNELS = [
 
 ADULT_BLOCKS = [
     [
+        '#EXTINF:-1 tvg-id="rch_59" tvg-name="おとなの歓楽街 by MEN\'S NECO" tvg-chno="AD952" '
+        'group-title="99 成人・年齢制限",おとなの歓楽街 by MEN\'S NECO（国内・12秒A/V確認済）',
+        "https://cdn-apne1.tsv2.amagi.tv/linear/amg01287-rakutentvjapan-rchannelmensnecohlscmaf-rakutenjp/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="rch_42" tvg-name="映画（R15+）" tvg-chno="AD953" '
+        'tvg-logo="https://channel.rakuten.co.jp/service/img/logo/chlogo-with-number/243_r-15movie.png" '
+        'group-title="99 成人・年齢制限",映画（R15+）（国内・12秒A/V確認済）',
+        "https://cdn-apne1.tsv2.amagi.tv/linear/amg01287-rakutentvjapan-movie2cmaf-rakutenjp/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="rch_41" tvg-name="アイドル・グラビア" tvg-chno="AD954" '
+        'tvg-logo="https://channel.rakuten.co.jp/service/img/logo/chlogo-with-number/241_gravure.png" '
+        'group-title="99 成人・年齢制限",アイドル・グラビア（国内・12秒A/V確認済）',
+        "https://cdn-apne1.tsv2.amagi.tv/linear/amg01287-rakutentvjapan-gravurecmaf-rakutenjp/playlist.m3u8",
+    ],
+    [
+        '#EXTINF:-1 tvg-id="rch_40" tvg-name="刺激ストロング" tvg-chno="AD955" '
+        'tvg-logo="https://channel.rakuten.co.jp/service/img/logo/chlogo-with-number/242_shigekistrong.png" '
+        'group-title="99 成人・年齢制限",刺激ストロング（国内・12秒A/V確認済）',
+        "https://cdn-apne1.tsv2.amagi.tv/linear/amg01287-rakutentvjapan-shigekicmaf-rakutenjp/playlist.m3u8",
+    ],
+    [
         '#EXTINF:-1 tvg-id="BabesTV.cz" tvg-name="Babes TV" tvg-chno="AD929" '
         'tvg-logo="https://epg.iptvx.one/picons/babes-tv.png" group-title="99 成人・年齢制限",'
         'Babes TV（海外・12秒A/V・ロゴ確認済）',
@@ -235,6 +258,29 @@ ADULT_BLOCKS = [
     ],
 ]
 
+
+TAIWAN_HINET_CHANNELS = [
+    ("KBSWorld.kr", "KBS World", "1025", "KBS World（台湾回線・ロゴ確認済）"),
+    ("FTVNews.tw", "民視新聞台HD", "3017", "民視新聞台HD（ロゴ確認済）"),
+    ("TTV.tw", "台視HD", "3018", "台視HD（主回線・ロゴ確認済）"),
+    ("SanlihTaiwanChannel.tw", "三立台灣台", "3020", "三立台灣台（ロゴ確認済）"),
+    ("CinemaxAsia.sg@Taiwan", "Cinemax", "1001", "Cinemax（台湾回線・ロゴ確認済）"),
+    ("CNBCAsia.sg@Taiwan", "CNBC Asia", "1002", "CNBC Asia（台湾回線・ロゴ確認済）"),
+    ("HBOAsia.sg@Taiwan", "HBO HD", "1003", "HBO HD（台湾回線・ロゴ確認済）"),
+    ("DiscoveryAsia.sg@Taiwan", "Discovery Asia HD", "1004", "Discovery Asia HD（台湾回線・ロゴ確認済）"),
+    ("VideolandSports.tw", "緯來體育台HD", "1005", "緯來體育台HD（ロゴ確認済）"),
+    ("TTV.tw", "台視HD", "1008", "台視HD（予備・3018と同一映像確認済）"),
+    ("TVBSNews.tw", "TVBS新聞台HD", "1036", "TVBS新聞台HD（ロゴ確認済）"),
+    ("TVBS.tw", "TVBS HD", "1038", "TVBS HD（ロゴ確認済）"),
+    ("SETNews.tw", "三立新聞台", "3022", "三立新聞台（ロゴ確認済）"),
+    ("PTS.tw", "公視HD", "3024", "公視HD（ロゴ確認済）"),
+    ("CNNInternational.us@Taiwan", "CNN International HD", "3026", "CNN International HD（台湾回線・ロゴ確認済）"),
+    ("CartoonNetworkAsia.sg@Taiwan", "Cartoon Network Asia", "3027", "Cartoon Network Asia（台湾回線・ロゴ確認済）"),
+    ("CTiEntertainment.tw", "中天娛樂台HD", "3044", "中天娛樂台HD（ロゴ確認済）"),
+    ("TVBSG.tw", "TVBS歡樂台HD", "3047", "TVBS歡樂台HD（ロゴ確認済）"),
+    ("CTV.tw", "中視HD", "3049", "中視HD（ロゴ確認済）"),
+]
+
 CID_CHANNELS = [
     ("WOWOWCinema.jp", "WOWOWシネマ", "bs07", "02 BS", False),
     ("StarBS10.jp", "BS10プレミアム", "bs08", "02 BS", False),
@@ -321,6 +367,23 @@ def organize(path: Path) -> None:
         if tvg_id(extinf) not in existing_ids:
             blocks.append([extinf, url])
 
+    existing_urls = {
+        line
+        for block in blocks
+        for line in block[1:]
+        if line and not line.startswith("#")
+    }
+    for playlist_id, name, port, label in TAIWAN_HINET_CHANNELS:
+        url = f"http://125.227.210.55:{port}/VideoInput/play.ts"
+        if url in existing_urls:
+            continue
+        extinf = (
+            f'#EXTINF:-1 tvg-id="{playlist_id}" tvg-name="{name}" tvg-chno="TW{port}" '
+            f'group-title="14 台湾・公開配信",{label}'
+        )
+        blocks.append([extinf, url])
+        existing_urls.add(url)
+
     tv_safe = "safe" in path.name.casefold() or path.name == "kodi_playlist.m3u"
     existing_ids = {tvg_id(block[0]) for block in blocks}
     for playlist_id, name, cid, group, adult_only in CID_CHANNELS:
@@ -397,6 +460,14 @@ def organize(path: Path) -> None:
             "#NOTE:2026-11-01 full 205-entry health audit completed; replaced R-channel relay URLs for "
             "igo/shogi, pets and adult entertainment with verified direct HLS feeds. CGNTV Japan now points "
             "to its official YouTube live page because the retired CloudFront HLS returns 403."
+        ),
+        (
+            "#NOTE:2026-11-01 identified and added 18 distinct HiNet Taiwan channels plus one exact "
+            "TTV HD backup after A/V decode and logo checks; port 1008 matched port 3018 over 35/35 frames."
+        ),
+        (
+            "#NOTE:2026-11-01 restored four verified R-channel age-restricted feeds to the full playlist; "
+            "they remain excluded from the Kodi TV-safe playlist."
         ),
     ]
     if tv_safe:

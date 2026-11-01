@@ -56,6 +56,24 @@ SOURCES = [
     ("epgpw-tw-370248", "https://epg.pw/api/epg.xml?channel_id=370248"),
     ("epgpw-tw-543802", "https://epg.pw/api/epg.xml?channel_id=543802"),
     ("epgpw-tw-456640", "https://epg.pw/api/epg.xml?channel_id=456640"),
+    ("epgpw-kbs-world", "https://epg.pw/api/epg.xml?channel_id=410289"),
+    ("epgpw-tw-ftv-news-hd", "https://epg.pw/api/epg.xml?channel_id=457340"),
+    ("epgpw-tw-ttv-hd", "https://epg.pw/api/epg.xml?channel_id=457211"),
+    ("epgpw-tw-set-taiwan", "https://epg.pw/api/epg.xml?channel_id=456529"),
+    ("epgpw-tw-cinemax", "https://epg.pw/api/epg.xml?channel_id=456574"),
+    ("epgpw-tw-cnbc-asia", "https://epg.pw/api/epg.xml?channel_id=457350"),
+    ("epgpw-tw-hbo-hd", "https://epg.pw/api/epg.xml?channel_id=456655"),
+    ("epgpw-tw-discovery-asia-hd", "https://epg.pw/api/epg.xml?channel_id=457263"),
+    ("epgpw-tw-videoland-sports", "https://epg.pw/api/epg.xml?channel_id=456575"),
+    ("epgpw-tw-tvbs-news", "https://epg.pw/api/epg.xml?channel_id=456556"),
+    ("epgpw-tw-tvbs", "https://epg.pw/api/epg.xml?channel_id=456557"),
+    ("epgpw-tw-set-news", "https://epg.pw/api/epg.xml?channel_id=456555"),
+    ("epgpw-tw-pts-hd", "https://epg.pw/api/epg.xml?channel_id=457215"),
+    ("epgpw-tw-cnni-hd", "https://epg.pw/api/epg.xml?channel_id=457346"),
+    ("epgpw-cartoon-network-asia", "https://epg.pw/api/epg.xml?channel_id=410359"),
+    ("epgpw-tw-cti-entertainment", "https://epg.pw/api/epg.xml?channel_id=456539"),
+    ("epgpw-tw-tvbs-g", "https://epg.pw/api/epg.xml?channel_id=456543"),
+    ("epgpw-tw-ctv-hd", "https://epg.pw/api/epg.xml?channel_id=457213"),
     ("epgpw-cnn-international", "https://epg.pw/api/epg.xml?channel_id=76797"),
     ("epgpw-jimjam", "https://epg.pw/api/epg.xml?channel_id=7218"),
     ("epgpw-adult-brazzers", "https://epg.pw/api/epg.xml?channel_id=6926"),
@@ -75,7 +93,7 @@ REFERENCE_IDS = [
     "RedCherry.jp",
 ]
 
-FRESHNESS_REQUIRED_SOURCE_IDS = {
+TAIWAN_SOURCE_IDS = {
     "456834",
     "456835",
     "456836",
@@ -90,8 +108,28 @@ FRESHNESS_REQUIRED_SOURCE_IDS = {
     "456640",
 }
 
+FRESHNESS_REQUIRED_SOURCE_IDS = TAIWAN_SOURCE_IDS | {
+    "410289",
+    "457340",
+    "457211",
+    "456529",
+    "456574",
+    "457350",
+    "456655",
+    "457263",
+    "456575",
+    "456556",
+    "456557",
+    "456555",
+    "457215",
+    "457346",
+    "410359",
+    "456539",
+    "456543",
+    "457213",
+}
+
 TAIWAN_PERFORMER_SOURCE_IDS = {"456834", "456835", "456836", "456841", "456842"}
-TAIWAN_SOURCE_IDS = FRESHNESS_REQUIRED_SOURCE_IDS
 VISIBLE_TITLE_MAX_CHARS = 30
 VISIBLE_TITLE_MIN_PROGRAM_CHARS = 12
 TRANSLATION_CACHE = Path(

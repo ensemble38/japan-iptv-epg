@@ -1,5 +1,5 @@
 #EXTM3U url-tvg="https://ensemble38.github.io/japan-iptv-epg/japan_iptv_kodi_epg.xml.gz" x-tvg-url="https://ensemble38.github.io/japan-iptv-epg/japan_iptv_kodi_epg.xml.gz" tvg-url="https://ensemble38.github.io/japan-iptv-epg/japan_iptv_kodi_epg.xml.gz"
-#BUILD:2026-10-25 channels=166 adult-group=0 taiwan-public=8
+#BUILD:2026-10-25 channels=185 adult-group=0 taiwan-public=8
 #NOTE:The 11 Taiwan routes removed on 2026-09-30 were restored because the revalidation incorrectly treated direct MPEG-TS responses as HLS manifests. Kodi remains untouched.
 #NOTE:2026-10-08 naori-test 49 dead routes replaced with Haruka 118.69.27.222 mappings; all 49 ffprobe plus 6s A/V decode passed; terrestrial 46/46 rechecked.
 #NOTE:2026-10-20 added 10 Taiwan public channels; master/child/current media segment revalidated. Dali uses the newest rolling segment because old entries expire.
@@ -16,6 +16,8 @@
 #NOTE:2026-10-25 re-dug adult sources without content-category filtering: added 15 live routes and 8 verified backup routes after 12-second A/V decode and visual channel checks; Kodi stays adult-free.
 #NOTE:2026-10-25 Kodi playlist and EPG refreshed after the adult-source revalidation; all adult routes remain excluded from the TV-safe outputs.
 #NOTE:2026-11-01 full 205-entry health audit completed; replaced R-channel relay URLs for igo/shogi, pets and adult entertainment with verified direct HLS feeds. CGNTV Japan now points to its official YouTube live page because the retired CloudFront HLS returns 403.
+#NOTE:2026-11-01 identified and added 18 distinct HiNet Taiwan channels plus one exact TTV HD backup after A/V decode and logo checks; port 1008 matched port 3018 over 35/35 frames.
+#NOTE:2026-11-01 restored four verified R-channel age-restricted feeds to the full playlist; they remain excluded from the Kodi TV-safe playlist.
 #EXTINF:-1 tvg-id="JOAKDTV.jp" tvg-name="NHK東京・総合" tvg-chno="011" tvg-logo="https://tvguide.myjcom.jp/monomedia/ch_logo/otd/logo-7fe0-011-400x400.png" group-title="01 地上波",NHK総合（東京）
 https://ri.shinori.my.id/pxx.php?shk_cid=hdgd01
 #EXTINF:-1 tvg-id="JOABDTV.jp" tvg-name="NHK東京・教育" tvg-chno="021" tvg-logo="https://i.imgur.com/WxtftlO.png" group-title="01 地上波",NHK Eテレ（東京）
@@ -346,5 +348,43 @@ https://lbs-us1.suprememastertv.com/720p.m3u8
 https://fastly.live.brightcove.com/6385235869112/ap-northeast-1/6282251407001/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0IjoiaWU4OWZvLmVncmVzcy5pdjNqZDgiLCJhY2NvdW50X2lkIjoiNjI4MjI1MTQwNzAwMSIsImVobiI6ImZhc3RseS5saXZlLmJyaWdodGNvdmUuY29tIiwiaXNzIjoiYmxpdmUtcGxheWJhY2stc291cmNlLWFwaSIsInN1YiI6InBhdGhtYXB0b2tlbiIsImF1ZCI6WyI2MjgyMjUxNDA3MDAxIl0sImp0aSI6IjYzODUyMzU4NjkxMTIifQ.4c-V1Ks3nBx9nRljtn5-jCNP_nLuWBbk-pw9BFWZfMQ/playlist-hls.m3u8
 #EXTINF:-1 tvg-id="WXTV.tw@SD" tvg-chno="TW910" group-title="14 台湾・公開配信",WXTV
 https://mobile.ccdntech.com/transcoder/_definst_/vod164_Live/live/chunklist_w1177047531.m3u8
+#EXTINF:-1 tvg-id="KBSWorld.kr" tvg-name="KBS World" tvg-chno="TW1025" group-title="14 台湾・公開配信",KBS World（台湾回線・ロゴ確認済）
+http://125.227.210.55:1025/VideoInput/play.ts
+#EXTINF:-1 tvg-id="FTVNews.tw" tvg-name="民視新聞台HD" tvg-chno="TW3017" group-title="14 台湾・公開配信",民視新聞台HD（ロゴ確認済）
+http://125.227.210.55:3017/VideoInput/play.ts
+#EXTINF:-1 tvg-id="TTV.tw" tvg-name="台視HD" tvg-chno="TW3018" group-title="14 台湾・公開配信",台視HD（主回線・ロゴ確認済）
+http://125.227.210.55:3018/VideoInput/play.ts
+#EXTINF:-1 tvg-id="SanlihTaiwanChannel.tw" tvg-name="三立台灣台" tvg-chno="TW3020" group-title="14 台湾・公開配信",三立台灣台（ロゴ確認済）
+http://125.227.210.55:3020/VideoInput/play.ts
+#EXTINF:-1 tvg-id="CinemaxAsia.sg@Taiwan" tvg-name="Cinemax" tvg-chno="TW1001" group-title="14 台湾・公開配信",Cinemax（台湾回線・ロゴ確認済）
+http://125.227.210.55:1001/VideoInput/play.ts
+#EXTINF:-1 tvg-id="CNBCAsia.sg@Taiwan" tvg-name="CNBC Asia" tvg-chno="TW1002" group-title="14 台湾・公開配信",CNBC Asia（台湾回線・ロゴ確認済）
+http://125.227.210.55:1002/VideoInput/play.ts
+#EXTINF:-1 tvg-id="HBOAsia.sg@Taiwan" tvg-name="HBO HD" tvg-chno="TW1003" group-title="14 台湾・公開配信",HBO HD（台湾回線・ロゴ確認済）
+http://125.227.210.55:1003/VideoInput/play.ts
+#EXTINF:-1 tvg-id="DiscoveryAsia.sg@Taiwan" tvg-name="Discovery Asia HD" tvg-chno="TW1004" group-title="14 台湾・公開配信",Discovery Asia HD（台湾回線・ロゴ確認済）
+http://125.227.210.55:1004/VideoInput/play.ts
+#EXTINF:-1 tvg-id="VideolandSports.tw" tvg-name="緯來體育台HD" tvg-chno="TW1005" group-title="14 台湾・公開配信",緯來體育台HD（ロゴ確認済）
+http://125.227.210.55:1005/VideoInput/play.ts
+#EXTINF:-1 tvg-id="TTV.tw" tvg-name="台視HD" tvg-chno="TW1008" group-title="14 台湾・公開配信",台視HD（予備・3018と同一映像確認済）
+http://125.227.210.55:1008/VideoInput/play.ts
+#EXTINF:-1 tvg-id="TVBSNews.tw" tvg-name="TVBS新聞台HD" tvg-chno="TW1036" group-title="14 台湾・公開配信",TVBS新聞台HD（ロゴ確認済）
+http://125.227.210.55:1036/VideoInput/play.ts
+#EXTINF:-1 tvg-id="TVBS.tw" tvg-name="TVBS HD" tvg-chno="TW1038" group-title="14 台湾・公開配信",TVBS HD（ロゴ確認済）
+http://125.227.210.55:1038/VideoInput/play.ts
+#EXTINF:-1 tvg-id="SETNews.tw" tvg-name="三立新聞台" tvg-chno="TW3022" group-title="14 台湾・公開配信",三立新聞台（ロゴ確認済）
+http://125.227.210.55:3022/VideoInput/play.ts
+#EXTINF:-1 tvg-id="PTS.tw" tvg-name="公視HD" tvg-chno="TW3024" group-title="14 台湾・公開配信",公視HD（ロゴ確認済）
+http://125.227.210.55:3024/VideoInput/play.ts
+#EXTINF:-1 tvg-id="CNNInternational.us@Taiwan" tvg-name="CNN International HD" tvg-chno="TW3026" group-title="14 台湾・公開配信",CNN International HD（台湾回線・ロゴ確認済）
+http://125.227.210.55:3026/VideoInput/play.ts
+#EXTINF:-1 tvg-id="CartoonNetworkAsia.sg@Taiwan" tvg-name="Cartoon Network Asia" tvg-chno="TW3027" group-title="14 台湾・公開配信",Cartoon Network Asia（台湾回線・ロゴ確認済）
+http://125.227.210.55:3027/VideoInput/play.ts
+#EXTINF:-1 tvg-id="CTiEntertainment.tw" tvg-name="中天娛樂台HD" tvg-chno="TW3044" group-title="14 台湾・公開配信",中天娛樂台HD（ロゴ確認済）
+http://125.227.210.55:3044/VideoInput/play.ts
+#EXTINF:-1 tvg-id="TVBSG.tw" tvg-name="TVBS歡樂台HD" tvg-chno="TW3047" group-title="14 台湾・公開配信",TVBS歡樂台HD（ロゴ確認済）
+http://125.227.210.55:3047/VideoInput/play.ts
+#EXTINF:-1 tvg-id="CTV.tw" tvg-name="中視HD" tvg-chno="TW3049" group-title="14 台湾・公開配信",中視HD（ロゴ確認済）
+http://125.227.210.55:3049/VideoInput/play.ts
 #EXTINF:-1 tvg-id="JimJam.uk" group-title="15 海外",JimJam
 http://zabava-htlive.cdn.ngenix.net/hls/CH_JIMJAM/variant.m3u8
