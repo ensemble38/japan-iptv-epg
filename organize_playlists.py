@@ -37,6 +37,15 @@ SPECIALIST_IDS = {
     "QVC.jp@SD",
 }
 
+SOURCE_UPDATES = {
+    "rch_86": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01287-rakutentvjapan-pet-cmaf-rakutenjp/playlist.m3u8",
+    "rch_100": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01287-rakutentvjapan-igo-shogi-cmaf-rakutenjp/playlist.m3u8",
+    "rch_98": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01287-rakutentvjapan-rvariety-cmaf-rakutenjp/playlist.m3u8",
+    # The retired CloudFront HLS now returns 403. Japan CGNTV's current live page
+    # embeds this official YouTube channel; it is only resolvable while the station is live.
+    "CGNTVJapan.jp@SD": "https://www.youtube.com/channel/UCtmf6YK4fCCOzlPWcbQvITw/live",
+}
+
 NEW_CHANNELS = [
     (
         '#EXTINF:-1 tvg-id="rch_47" tvg-name="日テレNEWS" tvg-chno="CH 104" '
@@ -340,6 +349,17 @@ def organize(path: Path) -> None:
                 existing_urls.add(url)
 
     for block in blocks:
+        playlist_id = tvg_id(block[0])
+        replacement = SOURCE_UPDATES.get(playlist_id)
+        if replacement:
+            block[:] = [line for line in block if line.startswith("#")]
+            block.append(replacement)
+        if playlist_id == "CGNTVJapan.jp@SD":
+            block[0] = block[0].replace(
+                "CGNTV Japan (1080p)", "CGNTV Japan（公式YouTube・配信時のみ）"
+            )
+
+    for block in blocks:
         extinf = block[0]
         if tvg_id(extinf) in SPECIALIST_IDS:
             extinf = re.sub(r'group-title="[^"]+"', 'group-title="03 CS・専門"', extinf)
@@ -372,6 +392,11 @@ def organize(path: Path) -> None:
         (
             "#NOTE:2026-10-25 re-dug adult sources without content-category filtering: added 15 live routes "
             "and 8 verified backup routes after 12-second A/V decode and visual channel checks; Kodi stays adult-free."
+        ),
+        (
+            "#NOTE:2026-11-01 full 205-entry health audit completed; replaced R-channel relay URLs for "
+            "igo/shogi, pets and adult entertainment with verified direct HLS feeds. CGNTV Japan now points "
+            "to its official YouTube live page because the retired CloudFront HLS returns 403."
         ),
     ]
     if tv_safe:
